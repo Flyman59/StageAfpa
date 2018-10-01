@@ -1,0 +1,61 @@
+﻿<Window x:Class="WorldlineMobileTeamOrganizationChart.View.OrganizationalChartView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:WorldlineMobileTeamOrganizationChart.ViewModel"
+        mc:Ignorable="d"
+        Title="OrganizationalChartView" Height="450" Width="800">
+
+    <Window.DataContext>
+        <viewModel:OrganizationChartViewModel></viewModel:OrganizationChartViewModel>
+    </Window.DataContext>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.ColumnSpan="6" Grid.Column="2"  VerticalAlignment="Center" HorizontalAlignment="Center" Content="Organigramme" FontSize="20"   />
+        <Label Grid.ColumnSpan="2"  VerticalAlignment="Center" HorizontalAlignment="Center" Content="Informations :" FontSize="20"   />
+        
+        <Label Content="Nom :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="1" FontSize="15"/>
+        <Label Content="Prenom :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="2" FontSize="15"/>
+        <Label Content="Mail :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="3" FontSize="15"/>
+        <Label Content="Tel  :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="4" FontSize="15"/>
+
+        <TextBox x:Name="AddStaffMembersFirstNameTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="FSFQSF"/>
+        <TextBox x:Name="AddStaffMembersNameTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="FSFQSF"/>
+        <TextBox x:Name="AddStaffMembersMailTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="FSFQSF"/>
+        <TextBox x:Name="AddStaffMembersPhoneTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Text="FSFQSF"/>
+
+        <Rectangle Grid.Column="2" Grid.RowSpan="6" Fill="Black"/>
+
+        <TreeView Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="5" VerticalAlignment="Center"/>
+
+        <Button Command="{Binding CommandAddStaffMembers}" Content="+" Grid.Column="7" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="20" Width="20" />
+
+
+    </Grid>
+</Window>
