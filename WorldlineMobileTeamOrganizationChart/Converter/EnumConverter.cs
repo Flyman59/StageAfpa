@@ -13,7 +13,9 @@ namespace WorldlineMobileTeamOrganizationChart.Converter
 {
     public class EnumConverter : IValueConverter
     {
-        private string GetEnumDescription(Enum enumObj)
+       
+
+        public string GetEnumDescription(Enum enumObj)
         {
             FieldInfo fieldInfo = enumObj.GetType().GetField(enumObj.ToString());
 

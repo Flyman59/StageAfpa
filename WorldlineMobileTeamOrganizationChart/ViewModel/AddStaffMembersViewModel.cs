@@ -20,12 +20,12 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         private string _Tel;
         private Fonction _GetFonction;
 
-        public string Surname { get => _Surname; set { _Surname = value; RaisePropertyChanged(Surname); } }
-        public string Name { get => _Name; set { _Name = value; RaisePropertyChanged(Name); }
+        public string Surname { get => _Surname; set { _Surname = value; RaisePropertyChanged(nameof(Surname)); } }
+        public string Name { get => _Name; set { _Name = value; RaisePropertyChanged(nameof(Name)); }
 }
-        public string Mail { get => _Mail; set { _Mail = value; RaisePropertyChanged(Mail); } }
-        public string Tel { get => _Tel; set { _Tel = value; RaisePropertyChanged(Tel); } }
-        //public Fonction GetFonction { get => _GetFonction; set { _GetFonction = value; RaisePropertyChanged(GetFonction); } }
+        public string Mail { get => _Mail; set { _Mail = value; RaisePropertyChanged(nameof(Mail)); } }
+        public string Tel { get => _Tel; set { _Tel = value; RaisePropertyChanged(nameof(Tel)); } }
+        public Fonction GetFonction { get => _GetFonction; set { _GetFonction = value; RaisePropertyChanged(nameof(GetFonction)); } }
 
 
         public ICommand CommandAddStaffMember { get; set; }
@@ -49,8 +49,9 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
                     Mail = this.Mail,
                     Name = this.Name ,
                     Tel = this.Tel,
+                    Fonction=GetFonction,
                 };
-                context.Add(staffMember);
+               await context.AddAsync(staffMember);
                 context.SaveChanges();
                 var members = context.StaffMember.ToList();
                 context.SaveChanges();

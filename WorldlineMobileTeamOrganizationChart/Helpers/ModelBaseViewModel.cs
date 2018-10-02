@@ -15,5 +15,9 @@ namespace WorldlineMobileTeamOrganizationChart.Helpers
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+       
+
+
     }
 }

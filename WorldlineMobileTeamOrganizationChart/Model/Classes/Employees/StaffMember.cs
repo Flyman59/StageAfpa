@@ -20,6 +20,7 @@ namespace WorldlineMobileTeamOrganizationChart.Model.Classes.Employees
         public string Name { get; set; }
         [Required]
         public string Tel { get; set; }
-        public Fonction FonctionStaff { get; set; }
+        [Required]
+        public Fonction Fonction { get; set; }
     }
 }

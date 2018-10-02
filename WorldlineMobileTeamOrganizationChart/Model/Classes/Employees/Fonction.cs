@@ -9,6 +9,12 @@ namespace WorldlineMobileTeamOrganizationChart.Model.Classes.Employees
 {
     public enum Fonction
     {
-        Manager,Chef_de_projet,Developpeur
+        [Description("Manager")]
+        Manager,
+        [Description("Chef de projet")]
+        ChefDeProjet,
+        [Description("Développeur")]
+        Développeur
+
     }
 }

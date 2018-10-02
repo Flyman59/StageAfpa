@@ -19,6 +19,7 @@
                 <x:Type TypeName="MyEnumFonction:Fonction" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <Converter:EnumConverter x:Key="EnumConvert" />
     </Window.Resources>
 
     <Window.DataContext>
@@ -68,9 +69,17 @@
         <Rectangle Grid.Column="2" Grid.RowSpan="6" Fill="Black" />
         <Rectangle Grid.Column="5" Grid.RowSpan="5" Fill="Black" />
 
-        <ListBox x:Name="ChooseFonctionListBox" SelectedIndex="0" ItemsSource="{Binding Source={StaticResource MyFonctionValues}}" Grid.ColumnSpan="2" Grid.Column="3" HorizontalAlignment="Stretch" Grid.Row="1"  VerticalAlignment="Center" FontSize="14">
-            
+        <ListBox x:Name="ChooseFonctionListBox" SelectedIndex="0" SelectedItem="{Binding GetFonction, Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource MyFonctionValues}}" Grid.ColumnSpan="2" Grid.Column="3" HorizontalAlignment="Stretch" Grid.Row="1"  VerticalAlignment="Center" FontSize="14">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource EnumConvert}}"></TextBlock>
+
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        
         </ListBox>
+
+
         <ListBox x:Name="ChooseManagerListBox" Grid.ColumnSpan="2" Grid.Column="6" HorizontalAlignment="Stretch" Grid.Row="1"  VerticalAlignment="Center" FontSize="14"/>
 
         <Button x:Name="BackAddStaffMembersBtn" Grid.Row="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Retour"/>
