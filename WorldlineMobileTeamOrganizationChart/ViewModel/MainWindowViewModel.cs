@@ -20,7 +20,10 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         private string _UserMdp;
         private string _UserLogin;
         private string _VerifLogAndPass;
-       
+
+        
+
+
         
 
         List<UserAccount> data;
@@ -53,55 +56,42 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
 
         public async void GetInfoCo()
         {
-            using (var context = new StaffMembersContext())
+           
+            data = await ClientBase.GetAccountPageAsync();
+
+            bool found = false;
+
+            foreach (UserAccount userAccount in data)
             {
-                context.Database.EnsureCreated();
-                var staffMember = new StaffMember {
-                    firstName = "toto",
-                    fonction = Fonction.FinalyOrder,
-                    mail = "toto@toto.fr",
-                    Name = "toto",
-                    Tel = 68784548
-                };
-                context.Add(staffMember);
-                context.SaveChanges();
-                var members = context.staffMembers.ToList();
-                Console.WriteLine(members);
+                if (userAccount.login == UserLogin)
+                {
+                    VerifLogAndPass = "Login correct";
+
+                    found = true;
+                    if (userAccount.mdp == UserMdp)
+                    {
+                        VerifLogAndPass = "login et mot de passe correct";
+                        OrganizationalChartView organizationalChartView = new OrganizationalChartView();
+                        organizationalChartView.Show();
+
+                        Application.Current.MainWindow.Close();
+
+                    }
+                    else
+                    {
+
+                        VerifLogAndPass = "Mot de passe incorrect";
+                    }
+
+
+                }
+
             }
-            //data = await ClientBase.GetAccountPageAsync();
 
-            //bool found = false;
-
-            //foreach  (UserAccount userAccount in  data)
-            //{
-            //     if (userAccount.login == UserLogin)
-            //    {
-            //       VerifLogAndPass ="Login correct";
-                    
-            //        found = true;
-            //        if (userAccount.mdp == UserMdp)
-            //        {
-            //          VerifLogAndPass ="login et mot de passe correct";
-            //            OrganizationalChartView organizationalChartView = new OrganizationalChartView();
-            //            organizationalChartView.Show();
-
-            //            Application.Current.MainWindow.Close();
-                        
-            //        }  else 
-            //        {
-
-            //            VerifLogAndPass  = "Mot de passe incorrect";
-            //        }
-
-
-            //    }
-                
-            //}
-
-            //if (!found)
-            //{
-            //   VerifLogAndPass ="Login incorrect";
-            //}
+            if (!found)
+            {
+                VerifLogAndPass = "Login incorrect";
+            }
 
         }
 

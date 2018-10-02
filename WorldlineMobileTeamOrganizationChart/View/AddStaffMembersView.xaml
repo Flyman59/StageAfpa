@@ -60,10 +60,10 @@
         <Label Content="Mail :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="3" FontSize="15"/>
         <Label Content="Tel  :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="4" FontSize="15"/>
 
-        <TextBox x:Name="AddStaffMembersFirstNameTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="FSFQSF"/>
-        <TextBox x:Name="AddStaffMembersNameTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="FSFQSF"/>
-        <TextBox x:Name="AddStaffMembersMailTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="FSFQSF"/>
-        <TextBox x:Name="AddStaffMembersPhoneTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Text="FSFQSF"/>
+        <TextBox x:Name="AddStaffMemberSurNameTextBox" Text="{Binding Surname}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
+        <TextBox x:Name="AddStaffMemberNameTextBox" Text="{Binding Name}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
+        <TextBox x:Name="AddStaffMemberMailTextBox" Text="{Binding Mail}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" />
+        <TextBox x:Name="AddStaffMemberPhoneTextBox" Text="{Binding Tel}"  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" />
 
         <Rectangle Grid.Column="2" Grid.RowSpan="6" Fill="Black" />
         <Rectangle Grid.Column="5" Grid.RowSpan="5" Fill="Black" />
@@ -74,6 +74,6 @@
         <ListBox x:Name="ChooseManagerListBox" Grid.ColumnSpan="2" Grid.Column="6" HorizontalAlignment="Stretch" Grid.Row="1"  VerticalAlignment="Center" FontSize="14"/>
 
         <Button x:Name="BackAddStaffMembersBtn" Grid.Row="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Retour"/>
-        <Button x:Name="ConfirmAddStaffMembersBnt" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Valider"/>
+        <Button x:Name="ConfirmAddStaffMembersBnt" Command="{Binding CommandAddStaffMember }" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Valider"/>
     </Grid>
 </Window>

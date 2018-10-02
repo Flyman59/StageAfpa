@@ -8,9 +8,9 @@ using WorldlineMobileTeamOrganizationChart.Model.Classes.Employees;
 
 namespace WorldlineMobileTeamOrganizationChart.Helpers
 {
-    class StaffMembersContext : DbContext
+    public class StaffMembersContext : DbContext
     {
-        public DbSet<StaffMember> staffMembers { get; set; }
+        public DbSet<StaffMember> StaffMember { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WorldlineMobileTeamOrganizationChart.Helpers;
 using WorldlineMobileTeamOrganizationChart.View;
+using WorldlineMobileTeamOrganizationChart.ViewModel;
 
 namespace WorldlineMobileTeamOrganizationChart.ViewModel
 {
@@ -24,6 +25,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
 
 
             AddStaffMembersView addStaffMembersView = new AddStaffMembersView();
+            
             addStaffMembersView.Show();
             
             

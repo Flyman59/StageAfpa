@@ -10,13 +10,16 @@ namespace WorldlineMobileTeamOrganizationChart.Model.Classes.Employees
 {
     public class StaffMember
     {
-        [Key]
+        [Key] 
         public int ID { get; set; }
-        public string mail { get; set; }
-        public string firstName { get; set; }
+        [Required]
+        public string Mail { get; set; }
+        [Required]
+        public string SurName { get; set; }
+        [Required]
         public string Name { get; set; }
-        public int Tel { get; set; }
-
-        public Fonction fonction { get; set; }
+        [Required]
+        public string Tel { get; set; }
+        public Fonction FonctionStaff { get; set; }
     }
 }
