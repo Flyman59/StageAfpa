@@ -7,6 +7,7 @@
         xmlns:MyEnumFonction="clr-namespace:WorldlineMobileTeamOrganizationChart.Model.Classes.Employees"
         xmlns:viewModel="clr-namespace:WorldlineMobileTeamOrganizationChart.ViewModel"
         xmlns:Converter="clr-namespace:WorldlineMobileTeamOrganizationChart.Converter"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="StaffMembersViews" Height="450" Width="800">
@@ -20,6 +21,14 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
         <Converter:EnumConverter x:Key="EnumConvert" />
+
+        <Style x:Key="MaskedTextBoxStyle"
+               TargetType="TextBox">
+            <Setter Property="Margin" Value="10,0,10,0" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+
     </Window.Resources>
 
     <Window.DataContext>
@@ -61,10 +70,10 @@
         <Label Content="Mail :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="3" FontSize="15"/>
         <Label Content="Tel  :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="4" FontSize="15"/>
 
-        <TextBox x:Name="AddStaffMemberSurNameTextBox" Text="{Binding Surname}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
-        <TextBox x:Name="AddStaffMemberNameTextBox" Text="{Binding Name}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
-        <TextBox x:Name="AddStaffMemberMailTextBox" Text="{Binding Mail}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" />
-        <TextBox x:Name="AddStaffMemberPhoneTextBox" Text="{Binding Tel}"  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" />
+        <xctk:MaskedTextBox Mask="L"  x:Name="AddStaffMemberSurNameTextBox"  Text="{Binding Surname}"  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" AutoMoveFocus="True" AutoWordSelection="True" MaxHeight="{Binding Surname}" />
+        <xctk:MaskedTextBox Mask="L" x:Name="AddStaffMemberNameTextBox" Text="{Binding Name}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  />
+        <xctk:MaskedTextBox Mask="L.L@wordline.com" x:Name="AddStaffMemberMailTextBox" Text="{Binding Mail}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  />
+        <xctk:MaskedTextBox Mask="+33 00000000 " x:Name="AddStaffMemberPhoneTextBox" Text="{Binding Tel}"  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"  />
 
         <Rectangle Grid.Column="2" Grid.RowSpan="6" Fill="Black" />
         <Rectangle Grid.Column="5" Grid.RowSpan="5" Fill="Black" />
@@ -80,9 +89,12 @@
         </ListBox>
 
 
-        <ListBox x:Name="ChooseManagerListBox" Grid.ColumnSpan="2" Grid.Column="6" HorizontalAlignment="Stretch" Grid.Row="1"  VerticalAlignment="Center" FontSize="14"/>
+        <ListBox x:Name="ChooseManagerListBox" Grid.ColumnSpan="2"  Grid.Column="6" HorizontalAlignment="Stretch" Grid.Row="1"  VerticalAlignment="Center" FontSize="14"/>
 
         <Button x:Name="BackAddStaffMembersBtn" Grid.Row="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Retour"/>
         <Button x:Name="ConfirmAddStaffMembersBnt" Command="{Binding CommandAddStaffMember }" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Valider"/>
+
+        
+
     </Grid>
 </Window>
