@@ -196,6 +196,8 @@
     </ApplicationDefinition>
     <Compile Include="Converter\EnumConverter.cs" />
     <Compile Include="Helpers\ModelBaseViewModel.cs" />
+    <Compile Include="Helpers\RegexValidationRule.cs" />
+    <Compile Include="Helpers\RegexValidator.cs" />
     <Compile Include="Helpers\StaffMembersContext.cs" />
     <Compile Include="Model\Classes\Employees\Fonction.cs" />
     <Compile Include="Model\Classes\Employees\StaffMember.cs" />

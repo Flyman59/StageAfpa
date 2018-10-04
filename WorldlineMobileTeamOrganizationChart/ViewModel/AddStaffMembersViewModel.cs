@@ -44,19 +44,23 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
                 context.Database.EnsureCreated();
                 var staffMember = new StaffMember
                 {
-                    SurName = this.Surname ,
-                    
+                    SurName = this.Surname ,                    
                     Mail = this.Mail,
                     Name = this.Name ,
                     Tel = this.Tel,
                     Fonction=GetFonction,
                 };
                await context.AddAsync(staffMember);
-                context.SaveChanges();
+                
                 var members = context.StaffMember.ToList();
                 context.SaveChanges();
 
+                
             }
+
+           
+
+            
         }
 
 

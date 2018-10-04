@@ -26,5 +26,6 @@ namespace WorldlineMobileTeamOrganizationChart.Helpers
             .Property(e => e.Fonction)
             .HasConversion(converter);
         }
+
     }
 }

@@ -7,6 +7,8 @@
         xmlns:MyEnumFonction="clr-namespace:WorldlineMobileTeamOrganizationChart.Model.Classes.Employees"
         xmlns:viewModel="clr-namespace:WorldlineMobileTeamOrganizationChart.ViewModel"
         xmlns:Converter="clr-namespace:WorldlineMobileTeamOrganizationChart.Converter"
+         
+        xmlns:Validation="clr-namespace:WorldlineMobileTeamOrganizationChart.Helpers"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
@@ -27,6 +29,19 @@
             <Setter Property="Margin" Value="10,0,10,0" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="0,8" />
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip"
+            Value="{Binding 
+                    RelativeSource={RelativeSource Self}, 
+                    Path=(Validation.Errors)[0].ErrorContent
+                   }"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
     </Window.Resources>
@@ -70,10 +85,11 @@
         <Label Content="Mail :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="3" FontSize="15"/>
         <Label Content="Tel  :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="4" FontSize="15"/>
 
-        <xctk:MaskedTextBox Mask="L"  x:Name="AddStaffMemberSurNameTextBox"  Text="{Binding Surname}"  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" AutoMoveFocus="True" AutoWordSelection="True" MaxHeight="{Binding Surname}" />
-        <xctk:MaskedTextBox Mask="L" x:Name="AddStaffMemberNameTextBox" Text="{Binding Name}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  />
-        <xctk:MaskedTextBox Mask="L.L@wordline.com" x:Name="AddStaffMemberMailTextBox" Text="{Binding Mail}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  />
-        <xctk:MaskedTextBox Mask="+33 00000000 " x:Name="AddStaffMemberPhoneTextBox" Text="{Binding Tel}"  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"  />
+        <TextBox   x:Name="AddStaffMemberSurNameTextBox"  Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}" Validation:RegexValidator.RegexText="[a-zA]" Validation:RegexValidator.ErrorMessage="Saisie invalide"   HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"   AutoWordSelection="True" />
+        <TextBox x:Name="AddStaffMemberNameTextBox" MaxLength="20" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Validation:RegexValidator.RegexText="[a-zA]" Validation:RegexValidator.ErrorMessage="Saisie invalide" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"   />
+        <TextBox x:Name="AddStafMemberMailTextBox" Text="{Binding Mail, UpdateSourceTrigger=PropertyChanged}" Validation:RegexValidator.RegexText="^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" Validation:RegexValidator.ErrorMessage="Adresse mail invalide veuillez taper prenom.nom@worldline.com"  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+        <xctk:MaskedTextBox Mask="00 00 00 00 00" x:Name="AddStaffMemberPhoneTextBox"  Text="{Binding Tel}"  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" BeepOnError="True" AutoMoveFocus="True"  />
 
         <Rectangle Grid.Column="2" Grid.RowSpan="6" Fill="Black" />
         <Rectangle Grid.Column="5" Grid.RowSpan="5" Fill="Black" />
@@ -89,7 +105,25 @@
         </ListBox>
 
 
-        <ListBox x:Name="ChooseManagerListBox" Grid.ColumnSpan="2"  Grid.Column="6" HorizontalAlignment="Stretch" Grid.Row="1"  VerticalAlignment="Center" FontSize="14"/>
+        <ListView x:Name="ChooseManagerListBox" Grid.ColumnSpan="2"  Grid.Column="6" HorizontalAlignment="Stretch" Grid.Row="1"  VerticalAlignment="Center" FontSize="14" ItemsSource="{Binding GetFonction}">
+
+            <ListView.View>
+                <GridView>
+
+                    <GridView.Columns>
+
+                        <GridViewColumn  Header="Nom"
+                                        DisplayMemberBinding="{Binding Surname}"/>
+
+                        <GridViewColumn Header="Prénom"
+                                        DisplayMemberBinding="{Binding Name}"/>
+
+                    </GridView.Columns>
+
+                </GridView>
+            </ListView.View>
+
+        </ListView>
 
         <Button x:Name="BackAddStaffMembersBtn" Grid.Row="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Retour"/>
         <Button x:Name="ConfirmAddStaffMembersBnt" Command="{Binding CommandAddStaffMember }" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Valider"/>

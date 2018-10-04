@@ -13,12 +13,14 @@ namespace WorldlineMobileTeamOrganizationChart.Model.Classes.Employees
         [Key] 
         public int ID { get; set; }
         [Required]
+        [DataType(DataType.EmailAddress)]
         public string Mail { get; set; }
         [Required]
         public string SurName { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
+        [DataType(DataType.PhoneNumber)]
         public string Tel { get; set; }
         [Required]
         public Fonction Fonction { get; set; }
