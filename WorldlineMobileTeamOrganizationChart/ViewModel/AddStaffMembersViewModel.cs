@@ -29,10 +29,11 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
 
 
         public ICommand CommandAddStaffMember { get; set; }
+        public ICommand CommandAddManager { get; set; }
 
         public AddStaffMembersViewModel ()
         {
-            
+            CommandAddManager = new RelayCommand(DisplayAllManager);
             CommandAddStaffMember = new RelayCommand(UpdateBdd); 
         }
 
@@ -56,13 +57,20 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
                 context.SaveChanges();
 
                 
-            }
-
-           
-
-            
+            }          
         }
 
+        public void DisplayAllManager()
+        {
+            using (var context = new StaffMembersContext())
+            {
+                var manager = from m in context.StaffMember
+                              where m.Fonction == 0
+                              select m;
+                manager.ToList();
+                context.SaveChangesAsync();
+            }
+        }
 
 
     }
