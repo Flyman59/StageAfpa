@@ -57,7 +57,7 @@
         <Rectangle Grid.Column="5" Grid.RowSpan="6" Fill="Black"/>
 
         <TreeView x:Name="StaffMembersRank" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" VerticalAlignment="Center">
-            <!--<TreeView.Resources>
+            <TreeView.Resources>
 
                 <HierarchicalDataTemplate DataType="{x:Type viewModel:OrganizationChartViewModel}" ItemsSource="{Binding managerList}">
                     <StackPanel Orientation="Horizontal">
@@ -93,7 +93,7 @@
                 </HierarchicalDataTemplate>
                 
                 
-            </TreeView.Resources>-->
+            </TreeView.Resources>
 
         </TreeView>
 
