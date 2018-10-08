@@ -18,13 +18,15 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         private string _Name;
         private string _Mail;
         private string _Tel;
+        private List<StaffMember> _Manager;
         private Fonction _GetFonction;
 
+        
         public string Surname { get => _Surname; set { _Surname = value; RaisePropertyChanged(nameof(Surname)); } }
-        public string Name { get => _Name; set { _Name = value; RaisePropertyChanged(nameof(Name)); }
-}
+        public string Name { get => _Name; set { _Name = value; RaisePropertyChanged(nameof(Name)); }}
         public string Mail { get => _Mail; set { _Mail = value; RaisePropertyChanged(nameof(Mail)); } }
         public string Tel { get => _Tel; set { _Tel = value; RaisePropertyChanged(nameof(Tel)); } }
+        public List<StaffMember> Manager { get => _Manager; set { _Manager = value; RaisePropertyChanged(nameof(Manager)); } }
         public Fonction GetFonction { get => _GetFonction; set { _GetFonction = value; RaisePropertyChanged(nameof(GetFonction)); } }
 
 
@@ -33,8 +35,24 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
 
         public AddStaffMembersViewModel ()
         {
-            CommandAddManager = new RelayCommand(DisplayAllManager);
-            CommandAddStaffMember = new RelayCommand(UpdateBdd); 
+            
+            CommandAddStaffMember = new RelayCommand(UpdateBdd);
+            DisplayManager();
+            
+        }
+
+
+        public void DisplayManager()
+        {
+            using (var context = new StaffMembersContext())
+            {
+                var manager = from m in context.StaffMember
+                              where m.Fonction == Fonction.Manager
+                              select m;
+
+                Manager = manager.ToList();
+                context.SaveChanges();
+            }
         }
 
         public async void UpdateBdd()
@@ -49,29 +67,17 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
                     Mail = this.Mail,
                     Name = this.Name ,
                     Tel = this.Tel,
-                    Fonction=GetFonction,
+                    Fonction = GetFonction,
                 };
-               await context.AddAsync(staffMember);
-                
-                var members = context.StaffMember.ToList();
+               await context.AddAsync(staffMember);               
+               var members = context.StaffMember.ToList();
+               
                 context.SaveChanges();
 
-                
-            }          
-        }
-
-        public void DisplayAllManager()
-        {
-            using (var context = new StaffMembersContext())
-            {
-                var manager = from m in context.StaffMember
-                              where m.Fonction == 0
-                              select m;
-                manager.ToList();
-                context.SaveChangesAsync();
+                DisplayManager();
             }
+
+            
         }
-
-
     }
 }
