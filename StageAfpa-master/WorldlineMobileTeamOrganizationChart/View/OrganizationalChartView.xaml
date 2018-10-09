@@ -59,7 +59,7 @@
         <TreeView x:Name="StaffMembersRank" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" VerticalAlignment="Center">
             <TreeView.Resources>
 
-                <HierarchicalDataTemplate DataType="{x:Type viewModel:OrganizationChartViewModel}" ItemsSource="{Binding managerList}">
+                <HierarchicalDataTemplate x:Key="Manager" ItemsSource="{Binding managerList}">
                     <StackPanel Orientation="Horizontal">
 
                         <TextBlock Text="{Binding Surname }"/>
@@ -69,7 +69,7 @@
                     </StackPanel>
                     
                 </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type viewModel:OrganizationChartViewModel}" ItemsSource="{Binding projectManagerList }">
+                <HierarchicalDataTemplate x:Key="Chef de projet" ItemsSource="{Binding projectManagerList }">
 
                     <StackPanel Orientation="Horizontal">
 
@@ -80,7 +80,7 @@
                     </StackPanel>
 
                 </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type viewModel:OrganizationChartViewModel}" ItemsSource="{Binding developerList }">
+                <HierarchicalDataTemplate x:Key="Développer" ItemsSource="{Binding developerList }">
 
                     <StackPanel Orientation="Horizontal">
 

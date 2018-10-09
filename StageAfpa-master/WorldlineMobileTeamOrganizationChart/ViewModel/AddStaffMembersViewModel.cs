@@ -32,10 +32,11 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
 
         public ICommand CommandAddStaffMember { get; set; }
         public ICommand CommandAddManager { get; set; }
+        public ICommand CommandBack { get; set; }
 
         public AddStaffMembersViewModel ()
         {
-            
+            CommandBack = new RelayCommand(Retour);
             CommandAddStaffMember = new RelayCommand(UpdateBdd);
             DisplayManager();
             
@@ -53,6 +54,16 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
                 Manager = manager.ToList();
                 context.SaveChanges();
             }
+        }
+
+        public void Retour()
+        {
+
+            // Instanciation de la fenetre principale
+            MainWindow fenetrePrincipale = new MainWindow();
+            fenetrePrincipale.Show();
+            // Ferme la premiere fenetre (celle de derriere)
+            App.Current.Windows[0].Close();
         }
 
         public async void UpdateBdd()

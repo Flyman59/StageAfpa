@@ -122,7 +122,7 @@
 
         </ListView>
 
-        <Button x:Name="BackAddStaffMembersBtn" Grid.Row="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Retour"/>
+        <Button x:Name="BackAddStaffMembersBtn" Command="{Binding CommandBack}" Grid.Row="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Retour"/>
         <Button x:Name="ConfirmAddStaffMembersBnt" Command="{Binding CommandAddStaffMember }" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Valider"/>
 
         
