@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using WorldlineMobileTeamOrganizationChart.Helpers;
 using WorldlineMobileTeamOrganizationChart.Model.Classes.Employees;
 using WorldlineMobileTeamOrganizationChart.View;
 using WorldlineMobileTeamOrganizationChart.ViewModel;
+
 
 namespace WorldlineMobileTeamOrganizationChart.ViewModel
 {
@@ -17,6 +19,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         private List<StaffMember> _ManagerList;
         private List<StaffMember> _ProjectManagerList;
         private List<StaffMember> _DeveloperList;
+        private List<StaffMember> _AllStaffMemberList;
 
         private string _Surname;
         private string _Name;
@@ -32,6 +35,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         public List<StaffMember> managerList { get => _ManagerList; set { _ManagerList = value; RaisePropertyChanged(nameof(managerList)); } }
         public List<StaffMember> projectManagerList { get => _ProjectManagerList; set { _ProjectManagerList = value; RaisePropertyChanged(nameof(projectManagerList)); } }
         public List<StaffMember> developerList { get => _DeveloperList; set { _DeveloperList = value; RaisePropertyChanged(nameof(developerList)); } }
+        public List<StaffMember> AllStaffMemberList { get => _AllStaffMemberList; set { _AllStaffMemberList = value; RaisePropertyChanged(nameof(AllStaffMemberList)); } }
 
         public ICommand CommandAddStaffMembers { get; private set; }
         #endregion
@@ -40,9 +44,16 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         {
 
 
+            using (var context = new StaffMembersContext())
+            {
+                context.Database.EnsureCreated();
+            }
 
-
-
+            AllStaffMemberList = new List<StaffMember>();
+            projectManagerList = new List<StaffMember>();
+            managerList = new List<StaffMember>();
+            developerList = new List<StaffMember>();
+            
 
             #region//Filtrage des données
             using (var contextManager = new StaffMembersContext())
@@ -69,7 +80,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
             using (var contextDeveloper = new StaffMembersContext())
             {
                 var developer = from fonctionDeveloper in contextDeveloper.StaffMember
-                                where fonctionDeveloper.Fonction == Fonction.ChefDeProjet
+                                where fonctionDeveloper.Fonction == Fonction.Développeur
                                 select fonctionDeveloper;
                 developerList = developer.ToList();
             }
@@ -88,7 +99,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
             
             addStaffMembersView.Show();
             
-            
+
        }
 
 

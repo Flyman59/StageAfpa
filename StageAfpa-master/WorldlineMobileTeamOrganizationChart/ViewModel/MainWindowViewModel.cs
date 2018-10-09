@@ -46,9 +46,12 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         public MainWindowViewModel()
         {
             CommandConnexion = new RelayCommand(GetInfoCo);
-            
-           
-            
+
+            using (var context = new StaffMembersContext())
+            {
+                context.Database.EnsureCreated();
+            }
+
         }
 
         

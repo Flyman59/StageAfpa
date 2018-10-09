@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WorldlineMobileTeamOrganizationChart.Helpers;
 using WorldlineMobileTeamOrganizationChart.Model.Classes.Employees;
+using WorldlineMobileTeamOrganizationChart.View;
 
 
 
@@ -39,6 +40,11 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
             CommandBack = new RelayCommand(Retour);
             CommandAddStaffMember = new RelayCommand(UpdateBdd);
             DisplayManager();
+
+            using (var context = new StaffMembersContext())
+            {
+                context.Database.EnsureCreated();
+            }
             
         }
 
@@ -60,10 +66,10 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         {
 
             // Instanciation de la fenetre principale
-            MainWindow fenetrePrincipale = new MainWindow();
-            fenetrePrincipale.Show();
+            OrganizationalChartView organizationalChartView = new OrganizationalChartView();
+            organizationalChartView.Show();
             // Ferme la premiere fenetre (celle de derriere)
-            App.Current.Windows[0].Close();
+            App.Current.Windows[2].Close();
         }
 
         public async void UpdateBdd()
@@ -71,7 +77,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
             
             using (var context = new StaffMembersContext())
             {
-                context.Database.EnsureCreated();
+                
                 var staffMember = new StaffMember
                 {
                     SurName = this.Surname ,                    

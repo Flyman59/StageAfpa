@@ -6,8 +6,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib" 
         xmlns:MyEnumFonction="clr-namespace:WorldlineMobileTeamOrganizationChart.Model.Classes.Employees"
         xmlns:viewModel="clr-namespace:WorldlineMobileTeamOrganizationChart.ViewModel"
-        xmlns:Converter="clr-namespace:WorldlineMobileTeamOrganizationChart.Converter"
-         
+        xmlns:Converter="clr-namespace:WorldlineMobileTeamOrganizationChart.Converter"        
         xmlns:Validation="clr-namespace:WorldlineMobileTeamOrganizationChart.Helpers"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"

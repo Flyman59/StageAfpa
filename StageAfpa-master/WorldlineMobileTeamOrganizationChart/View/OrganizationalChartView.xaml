@@ -56,45 +56,20 @@
 
         <Rectangle Grid.Column="5" Grid.RowSpan="6" Fill="Black"/>
 
-        <TreeView x:Name="StaffMembersRank" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" VerticalAlignment="Center">
+        <TreeView x:Name="StaffMembersRank" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" VerticalAlignment="Center" ItemsSource="{Binding AllStaffMemberList}">
             <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type viewModel:OrganizationChartViewModel}" ItemsSource="{Binding managerList}">
 
-                <HierarchicalDataTemplate x:Key="Manager" ItemsSource="{Binding managerList}">
                     <StackPanel Orientation="Horizontal">
 
-                        <TextBlock Text="{Binding Surname }"/>
+                        <TextBlock Text="{Binding Surname}"/>
                         <TextBlock Text="[" Foreground="Blue"/>
-                        <TextBlock Text="{Binding managerList.Count}" Foreground="Blue"/>
-                    
+                        
                     </StackPanel>
                     
                 </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate x:Key="Chef de projet" ItemsSource="{Binding projectManagerList }">
-
-                    <StackPanel Orientation="Horizontal">
-
-                        <TextBlock Text="{Binding Surname }"/>
-                        <TextBlock Text="[" Foreground="Blue"/>
-                        <TextBlock Text="{Binding projectManagerList.Count}" Foreground="Blue"/>
-
-                    </StackPanel>
-
-                </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate x:Key="Développer" ItemsSource="{Binding developerList }">
-
-                    <StackPanel Orientation="Horizontal">
-
-                        <TextBlock Text="{Binding Surname }"/>
-                        <TextBlock Text="[" Foreground="Blue"/>
-                        <TextBlock Text="{Binding developerList.Count}" Foreground="Blue"/>
-
-                    </StackPanel>
-
-                </HierarchicalDataTemplate>
-                
-                
             </TreeView.Resources>
-
+            
         </TreeView>
 
         <Button Command="{Binding CommandAddStaffMembers}" Content="+" Grid.Column="0" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="20" Width="20" />
