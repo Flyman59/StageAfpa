@@ -59,7 +59,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
             using (var contextManager = new StaffMembersContext())
             {
                 var manager = from fontionManager in contextManager.StaffMember
-                              where fontionManager.Fonction == Fonction.Manager
+                              where fontionManager.Fonction == StaffFonction.Manager
                               select fontionManager;
 
                 managerList = manager.ToList();
@@ -67,10 +67,12 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
                 contextManager.SaveChanges();
             }
 
+
+
             using (var contextProjectManager = new StaffMembersContext())
             {
                 var projectManager = from fonctionProjectManager in contextProjectManager.StaffMember
-                                     where fonctionProjectManager.Fonction == Fonction.ChefDeProjet
+                                     where fonctionProjectManager.Fonction == StaffFonction.ChefDeProjet
                                      select fonctionProjectManager;
                 projectManagerList = projectManager.ToList();
 
@@ -80,7 +82,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
             using (var contextDeveloper = new StaffMembersContext())
             {
                 var developer = from fonctionDeveloper in contextDeveloper.StaffMember
-                                where fonctionDeveloper.Fonction == Fonction.Développeur
+                                where fonctionDeveloper.Fonction == StaffFonction.Développeur
                                 select fonctionDeveloper;
                 developerList = developer.ToList();
             }

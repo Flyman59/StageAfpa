@@ -202,7 +202,7 @@
     <Compile Include="Helpers\RegexValidationRule.cs" />
     <Compile Include="Helpers\RegexValidator.cs" />
     <Compile Include="Helpers\StaffMembersContext.cs" />
-    <Compile Include="Model\Classes\Employees\Fonction.cs" />
+    <Compile Include="Model\Classes\Employees\StaffFonction.cs" />
     <Compile Include="Model\Classes\Employees\StaffMember.cs" />
     <Compile Include="ViewModel\AddStaffMembersViewModel.cs" />
     <Compile Include="ViewModel\OrganizationChartViewModel.cs" />

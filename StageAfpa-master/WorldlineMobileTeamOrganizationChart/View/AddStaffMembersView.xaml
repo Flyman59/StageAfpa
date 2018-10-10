@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="clr-namespace:System;assembly=mscorlib" 
-        xmlns:MyEnumFonction="clr-namespace:WorldlineMobileTeamOrganizationChart.Model.Classes.Employees"
+        xmlns:MyEnumStaffFonction="clr-namespace:WorldlineMobileTeamOrganizationChart.Model.Classes.Employees"
         xmlns:viewModel="clr-namespace:WorldlineMobileTeamOrganizationChart.ViewModel"
         xmlns:Converter="clr-namespace:WorldlineMobileTeamOrganizationChart.Converter"        
         xmlns:Validation="clr-namespace:WorldlineMobileTeamOrganizationChart.Helpers"
@@ -18,7 +18,7 @@
                         ObjectType="{x:Type sys:Enum}"
                         x:Key="MyFonctionValues">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="MyEnumFonction:Fonction" />
+                <x:Type TypeName="MyEnumStaffFonction:StaffFonction" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
         <Converter:EnumConverter x:Key="EnumConvert" />

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WorldlineMobileTeamOrganizationChart.Model.Classes.Employees
 {
-    public enum Fonction
+    public enum StaffFonction
     {
         [Description("Manager")]
         Manager,

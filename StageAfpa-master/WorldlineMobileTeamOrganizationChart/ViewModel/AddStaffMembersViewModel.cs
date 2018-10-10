@@ -20,7 +20,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         private string _Mail;
         private string _Tel;
         private List<StaffMember> _Manager;
-        private Fonction _GetFonction;
+        private StaffFonction _GetFonction;
 
         
         public string Surname { get => _Surname; set { _Surname = value; RaisePropertyChanged(nameof(Surname)); } }
@@ -28,7 +28,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         public string Mail { get => _Mail; set { _Mail = value; RaisePropertyChanged(nameof(Mail)); } }
         public string Tel { get => _Tel; set { _Tel = value; RaisePropertyChanged(nameof(Tel)); } }
         public List<StaffMember> Manager { get => _Manager; set { _Manager = value; RaisePropertyChanged(nameof(Manager)); } }
-        public Fonction GetFonction { get => _GetFonction; set { _GetFonction = value; RaisePropertyChanged(nameof(GetFonction)); } }
+        public StaffFonction GetFonction { get => _GetFonction; set { _GetFonction = value; RaisePropertyChanged(nameof(GetFonction)); } }
 
 
         public ICommand CommandAddStaffMember { get; set; }
@@ -54,7 +54,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
             using (var context = new StaffMembersContext())
             {
                 var manager = from m in context.StaffMember
-                              where m.Fonction == Fonction.Manager
+                              where m.Fonction == StaffFonction.Manager
                               select m;
 
                 Manager = manager.ToList();

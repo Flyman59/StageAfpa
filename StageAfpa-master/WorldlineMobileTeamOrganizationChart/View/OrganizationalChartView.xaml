@@ -58,7 +58,7 @@
 
         <TreeView x:Name="StaffMembersRank" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" VerticalAlignment="Center" ItemsSource="{Binding AllStaffMemberList}">
             <TreeView.Resources>
-                <HierarchicalDataTemplate DataType="{x:Type viewModel:OrganizationChartViewModel}" ItemsSource="{Binding managerList}">
+                <HierarchicalDataTemplate x:Key="StaffMembersRank" DataType="{x:Type viewModel:OrganizationChartViewModel}" ItemsSource="{Binding managerList}">
 
                     <StackPanel Orientation="Horizontal">
 
