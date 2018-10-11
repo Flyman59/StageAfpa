@@ -104,7 +104,7 @@
         </ListBox>
 
 
-        <ListView x:Name="ChooseManagerListBox" Grid.ColumnSpan="2"  Grid.Column="6" HorizontalAlignment="Stretch" Grid.Row="1"  VerticalAlignment="Center" FontSize="14" ItemsSource="{Binding Manager}">
+        <ListView x:Name="ChooseManagerListBox" Grid.ColumnSpan="2"  Grid.Column="6" HorizontalAlignment="Stretch" Grid.Row="1"  VerticalAlignment="Center" FontSize="14" ItemsSource="{Binding ManagersList}" SelectedItem="{Binding AssignedManager }">
 
             <ListView.ItemTemplate>
                 <DataTemplate>

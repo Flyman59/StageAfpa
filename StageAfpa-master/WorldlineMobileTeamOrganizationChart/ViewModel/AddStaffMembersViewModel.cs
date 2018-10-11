@@ -19,7 +19,9 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         private string _Name;
         private string _Mail;
         private string _Tel;
-        private List<StaffMember> _Manager;
+        private StaffMember _Manager;
+        private List<StaffMember> _ManagersList;
+        private List<StaffMember> _AvailableManagersList;
         private StaffFonction _GetFonction;
 
         
@@ -27,13 +29,17 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         public string Name { get => _Name; set { _Name = value; RaisePropertyChanged(nameof(Name)); }}
         public string Mail { get => _Mail; set { _Mail = value; RaisePropertyChanged(nameof(Mail)); } }
         public string Tel { get => _Tel; set { _Tel = value; RaisePropertyChanged(nameof(Tel)); } }
-        public List<StaffMember> Manager { get => _Manager; set { _Manager = value; RaisePropertyChanged(nameof(Manager)); } }
-        public StaffFonction GetFonction { get => _GetFonction; set { _GetFonction = value; RaisePropertyChanged(nameof(GetFonction)); } }
 
+        public List<StaffMember> ManagersList { get => _ManagersList; set { _ManagersList = value; RaisePropertyChanged(nameof(ManagersList)); } }
+        public List<StaffMember> AvailableManagersList { get => _AvailableManagersList; set { _AvailableManagersList = value;RaisePropertyChanged(nameof(AvailableManagersList)); } }
+
+        public StaffFonction GetFonction { get => _GetFonction; set { _GetFonction = value; RaisePropertyChanged(nameof(GetFonction)); } }
+        public StaffMember AssignedManager { get => _Manager; set { _Manager = value; RaisePropertyChanged(nameof(AssignedManager)); } }
 
         public ICommand CommandAddStaffMember { get; set; }
         public ICommand CommandAddManager { get; set; }
         public ICommand CommandBack { get; set; }
+        
 
         public AddStaffMembersViewModel ()
         {
@@ -48,6 +54,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
             
         }
 
+        
 
         public void DisplayManager()
         {
@@ -55,9 +62,10 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
             {
                 var manager = from m in context.StaffMember
                               where m.Fonction == StaffFonction.Manager
+                          
                               select m;
 
-                Manager = manager.ToList();
+                ManagersList = manager.ToList();
                 context.SaveChanges();
             }
         }
@@ -85,9 +93,17 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
                     Name = this.Name ,
                     Tel = this.Tel,
                     Fonction = GetFonction,
+                    ManagerID = AssignedManager != null ? AssignedManager.ID : 0
+                    
                 };
                await context.AddAsync(staffMember);               
                var members = context.StaffMember.ToList();
+
+                
+               
+
+                AvailableManagersList = new List<StaffMember>();
+                
                
                 context.SaveChanges();
 

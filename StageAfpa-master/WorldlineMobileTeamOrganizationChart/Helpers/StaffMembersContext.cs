@@ -26,11 +26,17 @@ namespace WorldlineMobileTeamOrganizationChart.Helpers
             //.Property(e => e.Fonction)
             //.HasConversion(converter);
 
+
+            
+
             modelBuilder.Entity<StaffMember>()
-                .HasIndex(s => new { s.Mail, s.Name, s.SurName, s.Tel })
+                .HasIndex(s => new { s.Mail,  s.Tel })
                 .IsUnique();
 
-           
+            
+            
+                
+                
                 
             
         }

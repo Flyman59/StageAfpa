@@ -8,12 +8,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorldlineMobileTeamOrganizationChart.Model.Classes.Employees
 {
-    [Table ("employees")]
+    
     public class StaffMember
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        
 
-        public int ID { get; set; }
+        public int ID { get; set; } 
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Mail { get; set; }
@@ -24,11 +24,9 @@ namespace WorldlineMobileTeamOrganizationChart.Model.Classes.Employees
         [Required]
         [DataType(DataType.PhoneNumber)]
         public string Tel { get; set; }
-
- 
-        public int ManagerNum { get; set; }
         [Required]
         [EnumDataType(typeof(StaffFonction))]
         public StaffFonction Fonction { get; set; }
+        public int? ManagerID { get; set; }
     }
 }
