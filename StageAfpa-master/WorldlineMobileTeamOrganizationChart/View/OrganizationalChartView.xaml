@@ -56,9 +56,9 @@
 
         <Rectangle Grid.Column="5" Grid.RowSpan="6" Fill="Black"/>
 
-        <TreeView x:Name="StaffMembersRank" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" VerticalAlignment="Center" ItemsSource="{Binding AllStaffMemberList}">
+        <TreeView x:Name="StaffMembersRank" Grid.Column="0"  Grid.Row="1" Grid.ColumnSpan="5" VerticalAlignment="Center">
             <TreeView.Resources>
-                <HierarchicalDataTemplate x:Key="StaffMembersRank" DataType="{x:Type viewModel:OrganizationChartViewModel}" ItemsSource="{Binding managerList}">
+                <HierarchicalDataTemplate x:Key="ChiefStaffMembersRank"  ItemsSource="{Binding ChiefManagersList }">
 
                     <StackPanel Orientation="Horizontal">
 
@@ -67,6 +67,17 @@
                         
                     </StackPanel>
                     
+                </HierarchicalDataTemplate>
+
+                <HierarchicalDataTemplate x:Key="MembersStaffMembersRank"   ItemsSource="{Binding managerList }">
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="{Binding Surname}"/>
+                        <TextBlock Text="[" Foreground="Blue"/>
+
+                    </StackPanel>
+
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
             

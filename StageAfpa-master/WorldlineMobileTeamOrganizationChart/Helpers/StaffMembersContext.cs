@@ -20,14 +20,12 @@ namespace WorldlineMobileTeamOrganizationChart.Helpers
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //var converter = new EnumToStringConverter<StaffFonction>();
-            //modelBuilder
-            //.Entity<StaffMember>()
-            //.Property(e => e.Fonction)
-            //.HasConversion(converter);
+            var converter = new EnumToStringConverter<StaffFonction>();
 
-
-            
+            modelBuilder
+                .Entity<StaffMember>()
+                .Property(e => e.Fonction)
+                .HasConversion(converter);
 
             modelBuilder.Entity<StaffMember>()
                 .HasIndex(s => new { s.Mail,  s.Tel })

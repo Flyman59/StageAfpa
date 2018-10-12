@@ -25,8 +25,9 @@ namespace WorldlineMobileTeamOrganizationChart.Model.Classes.Employees
         [DataType(DataType.PhoneNumber)]
         public string Tel { get; set; }
         [Required]
-        [EnumDataType(typeof(StaffFonction))]
+        //[EnumDataType(typeof(StaffFonction))]
         public StaffFonction Fonction { get; set; }
         public int? ManagerID { get; set; }
+        
     }
 }

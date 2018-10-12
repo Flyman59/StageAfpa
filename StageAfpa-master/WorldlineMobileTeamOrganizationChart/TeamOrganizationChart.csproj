@@ -204,6 +204,7 @@
     <Compile Include="Helpers\StaffMembersContext.cs" />
     <Compile Include="Model\Classes\Employees\StaffFonction.cs" />
     <Compile Include="Model\Classes\Employees\StaffMember.cs" />
+    <Compile Include="Model\Classes\Employees\StaffMemberFront.cs" />
     <Compile Include="ViewModel\AddStaffMembersViewModel.cs" />
     <Compile Include="ViewModel\OrganizationChartViewModel.cs" />
     <Compile Include="View\AddStaffMembersView.xaml.cs">

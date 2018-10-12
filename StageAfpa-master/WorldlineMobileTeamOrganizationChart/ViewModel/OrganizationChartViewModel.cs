@@ -17,9 +17,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
     {
         #region //propiétés
         private List<StaffMember> _ManagerList;
-        private List<StaffMember> _ProjectManagerList;
-        private List<StaffMember> _DeveloperList;
-        private List<StaffMember> _AllStaffMemberList;
+        private List<StaffMemberFront> _ChiefManagersList;
 
         private string _Surname;
         private string _Name;
@@ -33,59 +31,46 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         public string Mail { get => _Mail; set { _Mail = value; RaisePropertyChanged(nameof(Mail)); } }
         public string Tel { get => _Tel; set { _Tel = value; RaisePropertyChanged(nameof(Tel)); } }
         public List<StaffMember> managerList { get => _ManagerList; set { _ManagerList = value; RaisePropertyChanged(nameof(managerList)); } }
-        public List<StaffMember> projectManagerList { get => _ProjectManagerList; set { _ProjectManagerList = value; RaisePropertyChanged(nameof(projectManagerList)); } }
-        public List<StaffMember> developerList { get => _DeveloperList; set { _DeveloperList = value; RaisePropertyChanged(nameof(developerList)); } }
-        public List<StaffMember> AllStaffMemberList { get => _AllStaffMemberList; set { _AllStaffMemberList = value; RaisePropertyChanged(nameof(AllStaffMemberList)); } }
+        public List<StaffMemberFront> ChiefManagersList { get => _ChiefManagersList; set { _ChiefManagersList = value; RaisePropertyChanged(nameof(ChiefManagersList)); } }
+        #endregion
+
 
         public ICommand CommandAddStaffMembers { get; private set; }
-        #endregion
+        
 
         public OrganizationChartViewModel()
         {
-
+            managerList = new List<StaffMember>();
+            ChiefManagersList = new List<StaffMemberFront>();
+            ChiefManagersList.Cast<StaffMember>();
+            
 
             using (var context = new StaffMembersContext())
             {
                 context.Database.EnsureCreated();
             }
 
-            AllStaffMemberList = new List<StaffMember>();
-            projectManagerList = new List<StaffMember>();
-            managerList = new List<StaffMember>();
-            developerList = new List<StaffMember>();
+            
+           
+
+            
             
 
             #region//Filtrage des données
             using (var contextManager = new StaffMembersContext())
             {
-                var manager = from fontionManager in contextManager.StaffMember
+                var ChiefManagersList = from fontionManager in contextManager.StaffMember
                               where fontionManager.Fonction == StaffFonction.Manager
                               select fontionManager;
 
-                managerList = manager.ToList();
+                managerList = ChiefManagersList.ToList();
 
                 contextManager.SaveChanges();
             }
 
 
 
-            using (var contextProjectManager = new StaffMembersContext())
-            {
-                var projectManager = from fonctionProjectManager in contextProjectManager.StaffMember
-                                     where fonctionProjectManager.Fonction == StaffFonction.ChefDeProjet
-                                     select fonctionProjectManager;
-                projectManagerList = projectManager.ToList();
-
-
-            }
-
-            using (var contextDeveloper = new StaffMembersContext())
-            {
-                var developer = from fonctionDeveloper in contextDeveloper.StaffMember
-                                where fonctionDeveloper.Fonction == StaffFonction.Développeur
-                                select fonctionDeveloper;
-                developerList = developer.ToList();
-            }
+           
             #endregion
 
             CommandAddStaffMembers = new RelayCommand(OpenWindowsAddStaffMembers);
