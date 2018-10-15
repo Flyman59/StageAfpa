@@ -8,9 +8,9 @@ namespace WorldlineMobileTeamOrganizationChart.Model.Classes.Employees
 {
     public class StaffMemberFront
     {
-        private List<StaffMemberFront> _MembersList;
+        private List<StaffMember> _MembersList;
 
-
+        private StaffMember _StaffMember;
 
         public int IDStaffMemberFront; 
                 
@@ -25,13 +25,16 @@ namespace WorldlineMobileTeamOrganizationChart.Model.Classes.Employees
         public StaffFonction FonctionStaffMemberFront { get; set; }
 
         public int? ManagerIDStaffMemberFront { get; set; }        
-        public List<StaffMemberFront> MembersList { get => _MembersList; set => _MembersList = value; }
+        public List<StaffMember> MembersList { get => _MembersList; set => _MembersList = value; }
+        public StaffMember StaffMember { get => _StaffMember; set => _StaffMember = value; }
 
+        public StaffMemberFront()
+        {
+            staffMemberFrontConvert(StaffMember);
+            
+        }
 
-
-        
-
-        public StaffMemberFront(StaffMember staffMember)
+        public void staffMemberFrontConvert( StaffMember staffMember)
         {
             IDStaffMemberFront = staffMember.ID;
             MailStaffMemberFront = staffMember.Mail;
@@ -40,9 +43,10 @@ namespace WorldlineMobileTeamOrganizationChart.Model.Classes.Employees
             TelStaffMemberFront = staffMember.Tel;
             FonctionStaffMemberFront = staffMember.Fonction;
             ManagerIDStaffMemberFront = staffMember.ManagerID;
+            MembersList = staffMember.staffMembers;
+
             
         }
-
-        
+            
     }
 }

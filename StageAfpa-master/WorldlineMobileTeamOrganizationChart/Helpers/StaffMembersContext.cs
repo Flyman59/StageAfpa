@@ -11,7 +11,8 @@ namespace WorldlineMobileTeamOrganizationChart.Helpers
 {
     public class StaffMembersContext : DbContext
     {
-        public DbSet<StaffMember> StaffMember { get; set; }
+        public DbSet<StaffMember> staffMember { get; set; }
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -28,18 +29,18 @@ namespace WorldlineMobileTeamOrganizationChart.Helpers
                 .HasConversion(converter);
 
             modelBuilder.Entity<StaffMember>()
-                .HasIndex(s => new { s.Mail,  s.Tel })
+                .HasIndex(s => new { s.Mail, s.Tel })
                 .IsUnique();
 
-            
-            
-                
-                
-                
-            
+
+
+
+
+
+
         }
 
-       
+
 
     }
 }

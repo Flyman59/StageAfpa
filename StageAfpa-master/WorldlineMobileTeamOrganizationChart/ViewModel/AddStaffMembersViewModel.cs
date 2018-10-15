@@ -19,7 +19,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         private string _Name;
         private string _Mail;
         private string _Tel;
-        private StaffMember _Manager;
+        private StaffMember _ManagerId;
         private List<StaffMember> _ManagersList;
         private StaffFonction _GetFonction;
 
@@ -33,7 +33,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         
 
         public StaffFonction GetFonction { get => _GetFonction; set { _GetFonction = value; RaisePropertyChanged(nameof(GetFonction)); } }
-        public StaffMember AssignedManager { get => _Manager; set { _Manager = value; RaisePropertyChanged(nameof(AssignedManager)); } }
+        public StaffMember AssignedManager { get => _ManagerId; set { _ManagerId = value; RaisePropertyChanged(nameof(AssignedManager)); } }
 
         public ICommand CommandAddStaffMember { get; set; }
         public ICommand CommandAddManager { get; set; }
@@ -59,7 +59,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         {
             using (var context = new StaffMembersContext())
             {
-                var manager = from m in context.StaffMember
+                var manager = from m in context.staffMember
                               where m.Fonction == StaffFonction.Manager
                           
                               select m;
@@ -96,7 +96,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
                     
                 };
                await context.AddAsync(staffMember);               
-               var members = context.StaffMember.ToList();
+               var members = context.staffMember.ToList();
                 context.SaveChanges();
 
                 DisplayManager();

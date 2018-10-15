@@ -8,26 +8,26 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorldlineMobileTeamOrganizationChart.Model.Classes.Employees
 {
-    
+
     public class StaffMember
     {
-        
 
-        public int ID { get; set; } 
-        [Required]
-        [DataType(DataType.EmailAddress)]
+
+        public int ID { get; set; }
+        //[Required]
+        //[DataType(DataType.EmailAddress)]
         public string Mail { get; set; }
-        [Required]
+        //[Required]
         public string SurName { get; set; }
-        [Required]
+        //[Required]
         public string Name { get; set; }
-        [Required]
+        //[Required]
         [DataType(DataType.PhoneNumber)]
         public string Tel { get; set; }
-        [Required]
+        //[Required]
         //[EnumDataType(typeof(StaffFonction))]
         public StaffFonction Fonction { get; set; }
         public int? ManagerID { get; set; }
-        
+        public List<StaffMember> staffMembers { get; set; }
     }
 }
