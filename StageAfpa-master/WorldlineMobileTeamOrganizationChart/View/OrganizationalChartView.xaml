@@ -56,11 +56,13 @@
 
         <Rectangle Grid.Column="5" Grid.RowSpan="6" Fill="Black"/>
 
-        <TreeView x:Name="StaffMembersRank" ItemsSource="{Binding ChiefManagersList}" Grid.Column="0"  Grid.Row="1" Grid.ColumnSpan="5" VerticalAlignment="Center">
+        <TreeView x:Name="StaffMembersRank" Grid.Column="0"  Grid.Row="1" Grid.ColumnSpan="5" VerticalAlignment="Center" ItemsSource="{Binding ChiefManagersListFront}">
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding }">
-                    <TextBlock Text="{Binding SurName}"></TextBlock>
-                    
+                <HierarchicalDataTemplate ItemsSource="{Binding StaffMembersList}">
+                    <StackPanel>
+                    <TextBlock Text="{Binding Surname}"></TextBlock>                    
+                    <TextBlock Text="{Binding Name}"></TextBlock>
+                    </StackPanel>
                 </HierarchicalDataTemplate>
                 
             </TreeView.ItemTemplate>

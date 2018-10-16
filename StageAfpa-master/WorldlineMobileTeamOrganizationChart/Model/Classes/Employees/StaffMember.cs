@@ -28,6 +28,18 @@ namespace WorldlineMobileTeamOrganizationChart.Model.Classes.Employees
         //[EnumDataType(typeof(StaffFonction))]
         public StaffFonction Fonction { get; set; }
         public int? ManagerID { get; set; }
-        public List<StaffMember> staffMembers { get; set; }
+
+        public StaffMemberFront convertToStaffMemberFront(StaffMember staffMember)
+        {
+            StaffMemberFront staffMemberFront = new StaffMemberFront();
+            staffMemberFront.ID = staffMember.ID;
+            staffMemberFront.Mail = staffMember.Mail;
+            staffMemberFront.SurName = staffMember.SurName;
+            staffMemberFront.Name = staffMember.Name;
+            staffMemberFront.Tel = staffMember.Tel;
+            staffMemberFront.Fonction = staffMember.Fonction;
+            staffMemberFront.ManagerID = staffMember.ManagerID;
+            return staffMemberFront;
+        }
     }
 }
