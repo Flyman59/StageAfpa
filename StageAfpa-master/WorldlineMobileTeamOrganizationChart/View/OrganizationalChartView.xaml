@@ -58,13 +58,22 @@
 
         <TreeView x:Name="StaffMembersRank" Grid.Column="0"  Grid.Row="1" Grid.ColumnSpan="5" VerticalAlignment="Center" ItemsSource="{Binding ChiefManagersListFront}">
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding StaffMembersList}">
-                    <StackPanel>
-                    <TextBlock Text="{Binding Surname}"></TextBlock>                    
-                    <TextBlock Text="{Binding Name}"></TextBlock>
-                    </StackPanel>
+                <HierarchicalDataTemplate  ItemsSource="{Binding staffMembersFront}">
+                    <StackPanel >
+                        
+                        <TextBlock Text="{Binding SurName}"></TextBlock>
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                    </StackPanel >
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Surname}"></TextBlock>
+                                <TextBlock Text="{Binding Name}"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
                 </HierarchicalDataTemplate>
-                
+
             </TreeView.ItemTemplate>
             
         </TreeView>

@@ -18,11 +18,11 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         #region //propiétés
         
         private List<StaffMemberFront> _ChiefManagersListFront;
-        private List<StaffMemberFront> _StaffMembersListFront;
+        private List<StaffMemberFront> _StaffMembersManageListFront;
         private List<StaffMember> _ChiefManagersList;
-        private List<StaffMember> _ManagersList;
-        private List<StaffMemberFront> _ManagersListFront;
-        private List<StaffMember> _StaffMembersList;
+        private List<StaffMember> _StaffMemberManageList;
+        //private List<StaffMemberFront> _ManagersListFront;
+       // private List<StaffMember> _StaffMembersList;
 
         private string _Surname;
         private string _Name;
@@ -41,10 +41,12 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         public StaffFonction GetFonction { get => _GetFonction; set { _GetFonction = value; RaisePropertyChanged(nameof(GetFonction)); } }
         public List<StaffMember> ChiefManagersList { get => _ChiefManagersList; set { _ChiefManagersList = value;RaisePropertyChanged(nameof(ChiefManagersList)); } }
         public List<StaffMemberFront> ChiefManagersListFront { get => _ChiefManagersListFront; set { _ChiefManagersListFront = value;RaisePropertyChanged(nameof(ChiefManagersList)); } }
-        public List<StaffMemberFront> StaffMembersListFront { get => _StaffMembersListFront; set { _StaffMembersListFront = value; RaisePropertyChanged(nameof(StaffMembersListFront)); } }
-        public List<StaffMember> StaffMembersList { get => _StaffMembersList; set { _StaffMembersList = value;RaisePropertyChanged(nameof(StaffMembersList)); } }
-        public List<StaffMember> ManagersList { get => _ManagersList; set { _ManagersList = value;RaisePropertyChanged(nameof(ManagersList)); } }
-        public List<StaffMemberFront> ManagersListFront { get => _ManagersListFront; set { _ManagersListFront = value;RaisePropertyChanged(nameof(ManagersListFront)); } }
+        public List<StaffMemberFront> StaffMembersManageListFront { get => _StaffMembersManageListFront; set { _StaffMembersManageListFront = value; RaisePropertyChanged(nameof(StaffMembersManageListFront)); } }
+        //public List<StaffMember> StaffMembersList { get => _StaffMembersList; set { _StaffMembersList = value;RaisePropertyChanged(nameof(StaffMembersList)); } }
+        public List<StaffMember> StaffMemberManageList { get => _StaffMemberManageList; set { _StaffMemberManageList = value;RaisePropertyChanged(nameof(StaffMemberManageList)); } }
+        //public List<StaffMemberFront> ManagersListFront { get => _ManagersListFront; set { _ManagersListFront = value;RaisePropertyChanged(nameof(ManagersListFront)); } }
+
+        public int compteurStaffMember = -1;
 
         #endregion
 
@@ -88,28 +90,41 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
                 ChiefManagersList = chiefManagers.ToList();
 
                 ChiefManagersListFront = new List<StaffMemberFront>();
-                foreach(StaffMember sm in ChiefManagersList)
+                foreach(StaffMember smcfm in ChiefManagersList)
                 {
-                    ChiefManagersListFront.Add(sm.convertToStaffMemberFront(sm));                    
+                    ChiefManagersListFront.Add(smcfm.convertToStaffMemberFront(smcfm));
                 }
-                
 
-                contextChiefManager.SaveChanges();
+                foreach (StaffMemberFront smcfmf in ChiefManagersListFront)
+                {
+                    smcfmf.staffMembersFront = DisplayStaffMemberManage(smcfmf);
+                }
+
+
+
+
+
+                    contextChiefManager.SaveChanges();
             }
 
 
-            using (var contextAllStaffMember = new StaffMembersContext())
-            {
-                var manageMembers = from membersmanageList in contextAllStaffMember.staffMember
-                                 where membersmanageList.ManagerID == membersmanageList.ID 
-                                 select membersmanageList;
-                 ManagersList= manageMembers.ToList();
-                
-                foreach (StaffMember smf in ManagersList)
-                {
-                    ChiefManagersList.Add();
-                }
-            }
+            //using (var contextAllStaffMember = new StaffMembersContext())
+            //{
+
+            //    var manageMembers = from membersmanageList in contextAllStaffMember.staffMember
+            //                        where membersmanageList.ManagerID==ChiefManagersList
+            //                        select membersmanageList;
+            //    ManagersList = manageMembers.ToList();
+            //    ManagersList = new List<StaffMember>();
+
+
+            //    foreach (StaffMember sm in ManagersList)
+            //    {
+            //        ChiefManagersListFront.Add(sm.convertToStaffMemberFront(sm));
+            //    }
+
+            //    contextAllStaffMember.SaveChanges();
+            //}
 
 
 
@@ -134,21 +149,61 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
 
        }
 
-
-        public void getStaffMembersNotChiefManager()
+        public List<StaffMemberFront> DisplayStaffMemberManage(StaffMemberFront smcfm)
         {
-            using (var contextAllStaffMember = new StaffMembersContext())
-            {
-                var allMembers = from membersList in contextAllStaffMember.staffMember
-                                 where membersList.ManagerID != 0
-                                 select membersList;
-                StaffMembersList = allMembers.ToList();
+            
 
-                foreach (StaffMember allMembersList in StaffMembersList)
+            using (var contextStaffMemberManage = new StaffMembersContext())
+            {
+                var manageMembers = from membersmanageList in contextStaffMemberManage.staffMember
+                                    where membersmanageList.ManagerID == smcfm.ManagerID
+                                    select membersmanageList;
+                StaffMemberManageList = manageMembers.ToList();
+                StaffMembersManageListFront = new List<StaffMemberFront>();
+                foreach(StaffMember stml in StaffMemberManageList)
                 {
-                    ChiefManagersListFront.Add(allMembersList.convertToStaffMemberFront(allMembersList));
+                    StaffMembersManageListFront.Add(stml.convertToStaffMemberFront(stml));
+
+                    
                 }
+                contextStaffMemberManage.SaveChanges();
+                while(compteurStaffMember<StaffMembersManageListFront.Count  )
+                {
+                    compteurStaffMember++;
+                    DisplayStaffMemberManage(smcfm);
+                }
+
+                //do
+                //{
+                    
+                //    compteurStaffMember++;
+                //} while (compteurStaffMember < StaffMemberManageList.Count)
+                //{
+                //    DisplayStaffMemberManage(smcfm);
+                //}
+
+                
+                
+
             }
+            
+            return StaffMembersManageListFront; 
         }
+
+        //public void getStaffMembersNotChiefManager()
+        //{
+        //    using (var contextAllStaffMember = new StaffMembersContext())
+        //    {
+        //        var allMembers = from membersList in contextAllStaffMember.staffMember
+        //                         where membersList.ManagerID != 0
+        //                         select membersList;
+        //        StaffMembersList = allMembers.ToList();
+
+        //        foreach (StaffMember allMembersList in StaffMembersList)
+        //        {
+        //            ChiefManagersListFront.Add(allMembersList.convertToStaffMemberFront(allMembersList));
+        //        }
+        //    }
+        //}
     }
 }

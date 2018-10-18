@@ -15,7 +15,7 @@ namespace WorldlineMobileTeamOrganizationChart.Model.Classes.Employees
         public string Tel { get; set; }
         public StaffFonction Fonction { get; set; }
         public int? ManagerID { get; set; }
-        public List<StaffMember> staffMembers { get; set; }
+        public List<StaffMemberFront> staffMembersFront { get; set; }
 
 
         
