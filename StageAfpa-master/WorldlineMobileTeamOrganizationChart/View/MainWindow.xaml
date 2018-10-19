@@ -43,7 +43,7 @@
         <Label Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">Mot de passe :</Label>
         <TextBox x:Name="SaisissezVotreID"  Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Text="{Binding UserLogin,Mode=TwoWay}"   />
         <PasswordBox w:PasswordHelper.Attach="True" w:PasswordHelper.Password="{Binding UserMdp, Mode=TwoWay}"   Grid.Row="3" Grid.Column="2" VerticalAlignment="Center"     />
-        <Button Content="Connexion" Command="{Binding CommandConnexion }" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" ClickMode="Press"/>
+        <Button Content="Connexion" Command="{Binding CommandConnexion }" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" />
         <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding VerifLogAndPass, Mode=TwoWay}" />
 
 

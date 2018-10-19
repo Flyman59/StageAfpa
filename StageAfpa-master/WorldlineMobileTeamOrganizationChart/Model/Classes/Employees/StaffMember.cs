@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorldlineMobileTeamOrganizationChart.Model.Classes.Employees
 {
-
+    
     public class StaffMember
     {
 

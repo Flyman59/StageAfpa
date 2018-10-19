@@ -46,36 +46,35 @@
         <Label Content="Tel  :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="4" Grid.Column="6" FontSize="15"/>
         <Label Content="Fonction  :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="5" Grid.Column="6" FontSize="15"/>
 
-        <TextBox x:Name="AddStaffMembersFirstNameTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Text="FSFQSF"/>
-        <TextBox x:Name="AddStaffMembersNameTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Text="FSFQSF"/>
-        <TextBox x:Name="AddStaffMembersMailTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" Text="FSFQSF"/>
-        <TextBox x:Name="AddStaffMembersPhoneTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" Text="FSFQSF"/>
-        <TextBox x:Name="AddStaffMembersFonction" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="2" Text="FSFQSF"/>
+        <TextBox x:Name="AddStaffMembersFirstNameTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding ElementName=StaffMembersRank, Path=SelectedValuePath, Mode=TwoWay}" />
+        <TextBox x:Name="AddStaffMembersNameTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding Name, Mode=TwoWay}"/>
+        <TextBox x:Name="AddStaffMembersMailTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding Mail, Mode=TwoWay}"/>
+        <TextBox x:Name="AddStaffMembersPhoneTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding Tel}"/>
+        <TextBox x:Name="AddStaffMembersFonction" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding GetFonction}"/>
 
 
 
         <Rectangle Grid.Column="5" Grid.RowSpan="6" Fill="Black"/>
 
-        <TreeView x:Name="StaffMembersRank" Grid.Column="0"  Grid.Row="1" Grid.ColumnSpan="5" VerticalAlignment="Center" ItemsSource="{Binding ChiefManagersListFront}">
+        <TreeView x:Name="StaffMembersRank" Grid.Column="0"  Grid.Row="1" Grid.ColumnSpan="5"  VerticalAlignment="Center"   ItemsSource="{Binding ChiefManagersListFront}" Height="280" Grid.RowSpan="4">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate  ItemsSource="{Binding staffMembersFront}">
-                    <StackPanel >
+                    <StackPanel Orientation="Horizontal" >
                         
                         <TextBlock Text="{Binding SurName}"></TextBlock>
                         <TextBlock Text="{Binding Name}"></TextBlock>
+                        
                     </StackPanel >
-                    <HierarchicalDataTemplate.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <TextBlock Text="{Binding Surname}"></TextBlock>
-                                <TextBlock Text="{Binding Name}"></TextBlock>
-                            </StackPanel>
-                        </DataTemplate>
-                    </HierarchicalDataTemplate.ItemTemplate>
+                    
                 </HierarchicalDataTemplate>
 
             </TreeView.ItemTemplate>
-            
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem">
+                    <Setter Property="IsSelected" Value="{Binding AssignedTreeView}" />
+                     
+                </Style>
+            </TreeView.ItemContainerStyle>
         </TreeView>
 
         <Button Command="{Binding CommandAddStaffMembers}" Content="+" Grid.Column="0" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="20" Width="20" />
