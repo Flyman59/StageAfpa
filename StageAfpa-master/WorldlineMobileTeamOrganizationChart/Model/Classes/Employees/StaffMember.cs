@@ -14,18 +14,18 @@ namespace WorldlineMobileTeamOrganizationChart.Model.Classes.Employees
 
 
         public int ID { get; set; }
-        //[Required]
-        //[DataType(DataType.EmailAddress)]
+        [Required]
+        [DataType(DataType.EmailAddress)]
         public string Mail { get; set; }
-        //[Required]
+        [Required]
         public string SurName { get; set; }
-        //[Required]
+        [Required]
         public string Name { get; set; }
-        //[Required]
+        [Required]
         [DataType(DataType.PhoneNumber)]
         public string Tel { get; set; }
-        //[Required]
-        //[EnumDataType(typeof(StaffFonction))]
+        [Required]
+        [EnumDataType(typeof(StaffFonction))]
         public StaffFonction Fonction { get; set; }
         public int? ManagerID { get; set; }
 

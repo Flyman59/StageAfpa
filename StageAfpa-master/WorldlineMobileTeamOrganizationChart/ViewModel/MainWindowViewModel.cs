@@ -59,42 +59,47 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
 
         public async void GetInfoCo()
         {
-           
-            data = await ClientBase.GetAccountPageAsync();
+            try {
+                data = await ClientBase.GetAccountPageAsync();
 
-            bool found = false;
+                bool found = false;
 
-            foreach (UserAccount userAccount in data)
-            {
-                if (userAccount.login == UserLogin)
+                foreach (UserAccount userAccount in data)
                 {
-                    VerifLogAndPass = "Login correct";
-
-                    found = true;
-                    if (userAccount.mdp == UserMdp)
+                    if (userAccount.login == UserLogin)
                     {
-                        VerifLogAndPass = "login et mot de passe correct";
-                        OrganizationalChartView organizationalChartView = new OrganizationalChartView();
-                        organizationalChartView.Show();
+                        VerifLogAndPass = "Login correct";
 
-                        Application.Current.MainWindow.Close();
+                        found = true;
+                        if (userAccount.mdp == UserMdp)
+                        {
+                            VerifLogAndPass = "login et mot de passe correct";
+                            OrganizationalChartView organizationalChartView = new OrganizationalChartView();
+                            organizationalChartView.Show();
+
+                            Application.Current.MainWindow.Close();
+
+                        }
+                        else
+                        {
+
+                            VerifLogAndPass = "Mot de passe incorrect";
+                        }
+
 
                     }
-                    else
-                    {
-
-                        VerifLogAndPass = "Mot de passe incorrect";
-                    }
-
 
                 }
 
-            }
-
-            if (!found)
+                if (!found)
+                {
+                    VerifLogAndPass = "Login incorrect";
+                }
+            }catch (Exception ex)
             {
-                VerifLogAndPass = "Login incorrect";
+                MessageBox.Show("Connection serveur impossible." + ex.Message);
             }
+            
 
         }
 

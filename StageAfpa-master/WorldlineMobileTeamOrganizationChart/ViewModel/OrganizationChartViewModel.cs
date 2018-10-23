@@ -32,8 +32,8 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         public string Tel { get => _Tel; set { _Tel = value; RaisePropertyChanged(nameof(Tel)); } }
         public StaffFonction GetFonction { get => _GetFonction; set { _GetFonction = value; RaisePropertyChanged(nameof(GetFonction)); } }
         public List<StaffMember> ChiefManagersList { get => _ChiefManagersList; set { _ChiefManagersList = value;RaisePropertyChanged(nameof(ChiefManagersList)); } }
-        public List<StaffMemberFront> ChiefManagersListFront { get => _ChiefManagersListFront; set { _ChiefManagersListFront = value;RaisePropertyChanged(nameof(ChiefManagersList)); } }
-        public StaffMember AssignedTreeView { get => _AssignedTreeView; set { _AssignedTreeView = value; RaisePropertyChanged(nameof(AssignedTreeView)); } }
+        public List<StaffMemberFront> ChiefManagersListFront { get => _ChiefManagersListFront; set { _ChiefManagersListFront = value;RaisePropertyChanged(nameof(ChiefManagersList)); RaisePropertyChanged(nameof(AssignedTreeView));  } }
+        public StaffMember AssignedTreeView { get => _AssignedTreeView; set { _AssignedTreeView = value; RaisePropertyChanged(nameof(AssignedTreeView)); RaisePropertyChanged(nameof(ChiefManagersListFront));  } }
         #endregion
 
         public ICommand CommandAddStaffMembers { get; private set; }
@@ -43,10 +43,12 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
 
         public OrganizationChartViewModel()
         {
-
+            
             using (var context = new StaffMembersContext())
             {
                 context.Database.EnsureCreated();
+
+
             }
 
 
@@ -60,7 +62,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
                                      select managerList;
 
                 ChiefManagersList = chiefManagers.ToList();
-
+                
                 ChiefManagersListFront = new List<StaffMemberFront>();
                 foreach(StaffMember smcfm in ChiefManagersList)
                 {
@@ -119,35 +121,35 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
 
         public  void UpdateStaffMember()
         {
-
             using (var context = new StaffMembersContext())
             {
+                var staffmember = new StaffMember
+                {
+                    SurName = this.Surname,
+                    Mail = this.Mail,
+                    Name = this.Name,
+                    Tel = this.Tel,
+                    Fonction = GetFonction,
+
+                };
+
                 var UpdateStaff = context.staffMember.First();
-               
-                
+                context.Update(UpdateStaff);
                 context.SaveChanges();
 
                 
             }
-
-
         }
 
         public void DeleteStaffMember()
         {
-
             using (var context = new StaffMembersContext())
             {
-                var staff = context.staffMember.First();
+                var staff = context.staffMember.FirstOrDefault();
                 context.staffMember.Remove(staff);
                 
-
                 context.SaveChanges();
-
-
             }
-
-
         }
         #endregion
     }

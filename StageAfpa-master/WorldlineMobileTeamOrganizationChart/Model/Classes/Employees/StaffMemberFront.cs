@@ -18,6 +18,17 @@ namespace WorldlineMobileTeamOrganizationChart.Model.Classes.Employees
         public List<StaffMemberFront> staffMembersFront { get; set; }
 
 
-        
+        static public StaffMember convertToStaffMember(StaffMemberFront staffMemberFront)
+        {
+            StaffMember staffMember = new StaffMember();
+            staffMember.ID = staffMemberFront.ID;
+            staffMember.Mail = staffMemberFront.Mail;
+            staffMember.SurName = staffMemberFront.SurName;
+            staffMember.Name = staffMemberFront.Name;
+            staffMember.Tel = staffMemberFront.Tel;
+            staffMember.Fonction = staffMemberFront.Fonction;
+            staffMember.ManagerID = staffMemberFront.ManagerID;
+            return staffMember;
+        }
     }
 }

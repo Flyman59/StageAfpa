@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WorldlineMobileTeamOrganizationChart.Model.Classes.Employees;
+using WorldlineMobileTeamOrganizationChart.ViewModel;
 
 namespace WorldlineMobileTeamOrganizationChart.View
 {
@@ -22,6 +24,20 @@ namespace WorldlineMobileTeamOrganizationChart.View
         public OrganizationalChartView()
         {
             InitializeComponent();
+        }
+
+        private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var element = sender as FrameworkElement;
+           
+            if (element != null)
+            {
+                var staffMemberFront = element.DataContext as StaffMemberFront;
+                if (staffMemberFront != null)
+                {
+                   (DataContext as OrganizationChartViewModel).AssignedTreeView = StaffMemberFront.convertToStaffMember(staffMemberFront);                   
+                };
+            }
         }
     }
 }

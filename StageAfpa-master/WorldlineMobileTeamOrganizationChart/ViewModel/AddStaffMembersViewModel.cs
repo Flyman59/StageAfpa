@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using WorldlineMobileTeamOrganizationChart.Helpers;
 using WorldlineMobileTeamOrganizationChart.Model.Classes.Employees;
@@ -81,26 +82,32 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
 
         public async void UpdateBdd()
         {
-            
-            using (var context = new StaffMembersContext())
-            {
-                
-                var staffMember = new StaffMember
+            try {
+                using (var context = new StaffMembersContext())
                 {
-                    SurName = this.Surname ,                    
-                    Mail = this.Mail,
-                    Name = this.Name ,
-                    Tel = this.Tel,
-                    Fonction = GetFonction,
-                    ManagerID = AssignedManager != null ? AssignedManager.ID : 0
-                    
-                };
-               await context.AddAsync(staffMember);               
-               var members = context.staffMember.ToList();
-                context.SaveChanges();
 
-                DisplayManager();
+                    var staffMember = new StaffMember
+                    {
+                        SurName = this.Surname,
+                        Mail = this.Mail,
+                        Name = this.Name,
+                        Tel = this.Tel,
+                        Fonction = GetFonction,
+                        ManagerID = AssignedManager != null ? AssignedManager.ID : 0
+
+                    };
+                    await context.AddAsync(staffMember);
+                    var members = context.staffMember.ToList();
+                    context.SaveChanges();
+
+                    DisplayManager();
+                }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Saisie invalide", "Veuillez verifier les données saisie"  +  ex.Message);
+            }
+            
 
             
         }
