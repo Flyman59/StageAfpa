@@ -37,7 +37,9 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         #endregion
 
         public ICommand CommandAddStaffMembers { get; private set; }
-        
+        public ICommand CommandUpdateStaffMembers { get; private set; }
+        public ICommand CommandRemoveStaffMembers { get; private set; }
+
 
         public OrganizationChartViewModel()
         {
@@ -73,10 +75,11 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
                 }
             }
             #endregion
-
+            #region //RelayCommand
             CommandAddStaffMembers = new RelayCommand(OpenWindowsAddStaffMembers);
-
-
+            CommandUpdateStaffMembers = new RelayCommand(UpdateStaffMember);
+            CommandRemoveStaffMembers = new RelayCommand(DeleteStaffMember);
+            #endregion
         }
 
 
@@ -114,6 +117,38 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
             return StaffMembersManageListFront;
         }
 
+        public  void UpdateStaffMember()
+        {
+
+            using (var context = new StaffMembersContext())
+            {
+                var UpdateStaff = context.staffMember.First();
+               
+                
+                context.SaveChanges();
+
+                
+            }
+
+
+        }
+
+        public void DeleteStaffMember()
+        {
+
+            using (var context = new StaffMembersContext())
+            {
+                var staff = context.staffMember.First();
+                context.staffMember.Remove(staff);
+                
+
+                context.SaveChanges();
+
+
+            }
+
+
+        }
         #endregion
     }
 }

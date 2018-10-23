@@ -44,17 +44,31 @@
         <Label Content="Prenom :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="2" Grid.Column="6" FontSize="15"/>
         <Label Content="Mail :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="3" Grid.Column="6" FontSize="15"/>
         <Label Content="Tel  :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="4" Grid.Column="6" FontSize="15"/>
-        <Label Content="Fonction  :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="5" Grid.Column="6" FontSize="15"/>
+        <Label Content="Fonction  :"  HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="5" Grid.Column="6" FontSize="15"/>
 
-        <TextBox x:Name="AddStaffMembersFirstNameTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding ElementName=StaffMembersRank, Path=SelectedValuePath, Mode=TwoWay}" />
-        <TextBox x:Name="AddStaffMembersNameTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding Name, Mode=TwoWay}"/>
-        <TextBox x:Name="AddStaffMembersMailTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding Mail, Mode=TwoWay}"/>
-        <TextBox x:Name="AddStaffMembersPhoneTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding Tel}"/>
-        <TextBox x:Name="AddStaffMembersFonction" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding GetFonction}"/>
+        <Button Command="{Binding CommandUpdateStaffMembers}" Grid.Column="7" Grid.Row="1" VerticalAlignment="Top">Modifier</Button>
+        <Button Command="{Binding CommandRemoveStaffMembers}" Grid.Column="7" Grid.Row="1" VerticalAlignment="Center">Supprimer</Button>
+        <TextBox x:Name="AddStaffMembersFirstNameTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding ElementName=StaffMembersRank, Path=SelectedItem, Mode=TwoWay}" />
+        
+        <Button Command="{Binding CommandUpdateStaffMembers}" Grid.Column="7" Grid.Row="2" VerticalAlignment="Top">Modifier</Button>
+        <Button Command="{Binding CommandRemoveStaffMembers}" Grid.Column="7" Grid.Row="2" VerticalAlignment="Center">Supprimer</Button>
+        <TextBox x:Name="AddStaffMembersNameTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding ElementName=StaffMembersRank, Path=SelectedItem, Mode=TwoWay}"/>
+        
+        <Button Command="{Binding CommandUpdateStaffMembers}" Grid.Column="7" Grid.Row="3" VerticalAlignment="Top">Modifier</Button>
+        <Button Command="{Binding CommandRemoveStaffMembers}" Grid.Column="7" Grid.Row="3" VerticalAlignment="Center">Supprimer</Button>
+        <TextBox x:Name="AddStaffMembersMailTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding ElementName=StaffMembersRank, Path=SelectedItem, Mode=TwoWay}"/>
+        
+        <Button Command="{Binding CommandUpdateStaffMembers}" Grid.Column="7" Grid.Row="4" VerticalAlignment="Top">Modifier</Button>
+        <Button Command="{Binding CommandRemoveStaffMembers}" Grid.Column="7" Grid.Row="4" VerticalAlignment="Center">Supprimer</Button>
+        <TextBox x:Name="AddStaffMembersPhoneTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding ElementName=StaffMembersRank, Path=SelectedItem, Mode=TwoWay}"/>
+        
+        <Button Command="{Binding CommandUpdateStaffMembers}" Grid.Column="7" Grid.Row="5" VerticalAlignment="Top">Modifier</Button>
+        <TextBox x:Name="AddStaffMembersFonction" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding ElementName=StaffMembersRank, Path=SelectedItem, Mode=TwoWay}"/>
+        
 
 
 
-        <Rectangle Grid.Column="5" Grid.RowSpan="6" Fill="Black"/>
+            <Rectangle Grid.Column="5" Grid.RowSpan="6" Fill="Black"/>
 
         <TreeView x:Name="StaffMembersRank" Grid.Column="0"  Grid.Row="1" Grid.ColumnSpan="5"  VerticalAlignment="Center"   ItemsSource="{Binding ChiefManagersListFront}" Height="280" Grid.RowSpan="4">
             <TreeView.ItemTemplate>
