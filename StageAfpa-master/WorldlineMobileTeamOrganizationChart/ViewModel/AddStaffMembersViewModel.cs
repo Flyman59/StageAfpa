@@ -22,7 +22,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         private string _Tel;
         private StaffMember _ManagerId;
         private List<StaffMember> _ManagersList;
-        private StaffFonction _GetFonction;
+        private StaffFonction _Fonction;
 
         
         public string Surname { get => _Surname; set { _Surname = value; RaisePropertyChanged(nameof(Surname)); } }
@@ -33,7 +33,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         public List<StaffMember> ManagersList { get => _ManagersList; set { _ManagersList = value; RaisePropertyChanged(nameof(ManagersList)); } }
         
 
-        public StaffFonction GetFonction { get => _GetFonction; set { _GetFonction = value; RaisePropertyChanged(nameof(GetFonction)); } }
+        public StaffFonction Fonction { get => _Fonction; set { _Fonction = value; RaisePropertyChanged(nameof(Fonction)); } }
         public StaffMember AssignedManager { get => _ManagerId; set { _ManagerId = value; RaisePropertyChanged(nameof(AssignedManager)); } }
 
         public ICommand CommandAddStaffMember { get; set; }
@@ -49,7 +49,11 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
 
             using (var context = new StaffMembersContext())
             {
-                context.Database.EnsureCreated();
+                try { context.Database.EnsureCreated(); }catch(Exception ex)
+                {
+                    MessageBox.Show("Connection à la base de donnée impossible" + ex.Message);
+                }
+                
             }
             
         }
@@ -92,7 +96,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
                         Mail = this.Mail,
                         Name = this.Name,
                         Tel = this.Tel,
-                        Fonction = GetFonction,
+                        Fonction = Fonction,
                         ManagerID = AssignedManager != null ? AssignedManager.ID : 0
 
                     };

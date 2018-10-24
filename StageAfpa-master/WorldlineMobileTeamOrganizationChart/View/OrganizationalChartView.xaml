@@ -4,8 +4,46 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:WorldlineMobileTeamOrganizationChart.ViewModel"
+        xmlns:Converter="clr-namespace:WorldlineMobileTeamOrganizationChart.Converter"        
+        xmlns:Validation="clr-namespace:WorldlineMobileTeamOrganizationChart.Helpers"
+        xmlns:MyEnumStaffFonction="clr-namespace:WorldlineMobileTeamOrganizationChart.Model.Classes.Employees"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="OrganizationalChartView" Height="450" Width="800">
+
+    <Window.Resources>
+        <ObjectDataProvider MethodName="GetValues"
+                        ObjectType="{x:Type sys:Enum}"
+                        x:Key="MyFonctionValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="MyEnumStaffFonction:StaffFonction" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <Converter:EnumConverter x:Key="EnumConvert" />
+
+        <Style x:Key="MaskedTextBoxStyle"
+               TargetType="TextBox">
+            <Setter Property="Margin" Value="10,0,10,0" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}">
+            
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip"
+                    Value="{Binding 
+                    RelativeSource={RelativeSource Self}, 
+                    Path=(Validation.Errors)[0].ErrorContent
+                   }"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+
 
     <Window.DataContext>
         <viewModel:OrganizationChartViewModel></viewModel:OrganizationChartViewModel>
@@ -40,35 +78,31 @@
         <Label Grid.ColumnSpan="6" Grid.Column="0"  VerticalAlignment="Center" HorizontalAlignment="Center" Content="Organigramme" FontSize="20"   />
         <Label Grid.ColumnSpan="2" Grid.Column="6"  VerticalAlignment="Center" HorizontalAlignment="Center" Content="Informations :" FontSize="20"   />
         
-        <Label Content="Nom :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="6" FontSize="15"/>
-        <Label Content="Prenom :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="2" Grid.Column="6" FontSize="15"/>
-        <Label Content="Mail :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="3" Grid.Column="6" FontSize="15"/>
-        <Label Content="Tel  :" HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="4" Grid.Column="6" FontSize="15"/>
+        <Label Content="Nom :" HorizontalAlignment="left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="6" FontSize="15"/>
+        <Label Content="Prenom :" HorizontalAlignment="left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="6" FontSize="15"/>
+        <Label Content="Mail :" HorizontalAlignment="left" VerticalAlignment="Center" Grid.Row="3" Grid.Column="6" FontSize="15"/>
+        <Label Content="Tel  :" HorizontalAlignment="left" VerticalAlignment="Center" Grid.Row="4" Grid.Column="6" FontSize="15"/>
         <Label Content="Fonction  :"  HorizontalAlignment="left" VerticalAlignment="Top" Grid.Row="5" Grid.Column="6" FontSize="15"/>
 
-        <Button Command="{Binding CommandUpdateStaffMembers}" Grid.Column="7" Grid.Row="1" VerticalAlignment="Center">Modifier</Button>
+        <Button Command="{Binding CommandUpdateStaffMembers}" Grid.Column="6" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Top">Modifier</Button>
         <Button Command="{Binding CommandRemoveStaffMembers}" Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">Supprimer</Button>
-        <TextBox x:Name="AddStaffMembersFirstNameTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding AssignedTreeView.SurName, Mode=TwoWay}" />
-        
-        <Button Command="{Binding CommandUpdateStaffMembers}" Grid.Column="7" Grid.Row="2" VerticalAlignment="center">Modifier</Button>
-        
-            <TextBox x:Name="AddStaffMembersNameTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding AssignedTreeView.Name, Mode=TwoWay}"/>
-        
-        <Button Command="{Binding CommandUpdateStaffMembers}" Grid.Column="7" Grid.Row="3" VerticalAlignment="center">Modifier</Button>
-        
-            <TextBox x:Name="AddStaffMembersMailTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding AssignedTreeView.Mail, Mode=TwoWay}"/>
-        
-        <Button Command="{Binding CommandUpdateStaffMembers}" Grid.Column="7" Grid.Row="4" VerticalAlignment="center">Modifier</Button>
-        
-            <TextBox x:Name="AddStaffMembersPhoneTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding AssignedTreeView.Tel, Mode=TwoWay}"/>
-        
-        <Button Command="{Binding CommandUpdateStaffMembers}" Grid.Column="7" Grid.Row="5" VerticalAlignment="Center">Modifier</Button>
-        <TextBox x:Name="AddStaffMembersFonction" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="2" Text="{Binding AssignedTreeView.Fonction, Mode=TwoWay}"/>
         
 
+        <TextBox x:Name="AddStaffMemberSurNameTextBox"  Text="{Binding AssignedTreeView.SurName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Validation:RegexValidator.RegexText="[a-zA]" Validation:RegexValidator.ErrorMessage="Saisie invalide"   HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="AddStaffMemberNameTextBox"  Text="{Binding AssignedTreeView.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Validation:RegexValidator.RegexText="[a-zA]" Validation:RegexValidator.ErrorMessage="Saisie invalide" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="AddStafMemberMailTextBox" Text="{Binding AssignedTreeView.Mail, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Validation:RegexValidator.RegexText="[a-zA-Z0-9._%-]+\.[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" Validation:RegexValidator.ErrorMessage="Adresse mail invalide veuillez taper prenom.nom@worldline.com"  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2"/>
+        <xctk:MaskedTextBox Mask="00 00 00 00 00" x:Name="AddStaffMemberPhoneTextBox"  Text="{Binding AssignedTreeView.Tel, Mode=TwoWay}"  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" BeepOnError="True" AutoMoveFocus="True"  />
 
+        <ListBox x:Name="ChooseFonctionListBox" SelectedIndex="0" SelectedItem="{Binding AssignedTreeView.Fonction, Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource MyFonctionValues}}" Grid.ColumnSpan="2" Grid.Column="6" HorizontalAlignment="Stretch" Grid.Row="6"  VerticalAlignment="Bottom" FontSize="10.5">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource EnumConvert}}"></TextBlock>
 
-            <Rectangle Grid.Column="5" Grid.RowSpan="6" Fill="Black"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+        <Rectangle Grid.Column="5" Grid.RowSpan="6" Fill="Black"/>
 
         <TreeView x:Name="StaffMembersRank" Grid.Column="0"  Grid.Row="1" Grid.ColumnSpan="5"  VerticalAlignment="Center"   ItemsSource="{Binding ChiefManagersListFront}" Height="280" Grid.RowSpan="4">
             <TreeView.ItemTemplate>

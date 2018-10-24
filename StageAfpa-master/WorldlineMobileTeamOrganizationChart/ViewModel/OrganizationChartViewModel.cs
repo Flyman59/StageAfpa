@@ -24,22 +24,22 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         private string _Name;
         private string _Mail;
         private string _Tel;
-        private StaffFonction _GetFonction;
+        private StaffFonction _Fonction;
         
         public string Surname { get => _Surname; set { _Surname = value; RaisePropertyChanged(nameof(Surname)); } }
         public string Name { get => _Name; set { _Name = value; RaisePropertyChanged(nameof(Name)); } }
         public string Mail { get => _Mail; set { _Mail = value; RaisePropertyChanged(nameof(Mail)); } }
         public string Tel { get => _Tel; set { _Tel = value; RaisePropertyChanged(nameof(Tel)); } }
-        public StaffFonction GetFonction { get => _GetFonction; set { _GetFonction = value; RaisePropertyChanged(nameof(GetFonction)); } }
+        public StaffFonction Fonction { get => _Fonction; set { _Fonction = value; RaisePropertyChanged(nameof(Fonction)); } }
         public List<StaffMember> ChiefManagersList { get => _ChiefManagersList; set { _ChiefManagersList = value;RaisePropertyChanged(nameof(ChiefManagersList)); } }
         public List<StaffMemberFront> ChiefManagersListFront { get => _ChiefManagersListFront; set { _ChiefManagersListFront = value;RaisePropertyChanged(nameof(ChiefManagersList)); RaisePropertyChanged(nameof(AssignedTreeView));  } }
         public StaffMember AssignedTreeView { get => _AssignedTreeView; set { _AssignedTreeView = value; RaisePropertyChanged(nameof(AssignedTreeView)); RaisePropertyChanged(nameof(ChiefManagersListFront));  } }
-        #endregion
+        
 
         public ICommand CommandAddStaffMembers { get; private set; }
         public ICommand CommandUpdateStaffMembers { get; private set; }
         public ICommand CommandRemoveStaffMembers { get; private set; }
-
+        #endregion
 
         public OrganizationChartViewModel()
         {
@@ -47,24 +47,31 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
             using (var context = new StaffMembersContext())
             {
                 context.Database.EnsureCreated();
-
-
             }
 
-
-
             #region//Filtrage des données
+            DisplayTreeView();
+            #endregion
 
+            #region //RelayCommand
+            CommandAddStaffMembers = new RelayCommand(OpenWindowsAddStaffMembers);
+            CommandUpdateStaffMembers = new RelayCommand(UpdateStaffMember);
+            CommandRemoveStaffMembers = new RelayCommand(DeleteStaffMember);
+            #endregion
+        }
+        #region//Methodes
+        public void DisplayTreeView()
+        {
             using (var contextChiefManager = new StaffMembersContext())
             {
                 var chiefManagers = from managerList in contextChiefManager.staffMember
-                                     where managerList.ManagerID == 0
-                                     select managerList;
-
-                ChiefManagersList = chiefManagers.ToList();
+                                    where managerList.ManagerID == 0
+                                    select managerList;
                 
+                ChiefManagersList = chiefManagers.ToList();
+
                 ChiefManagersListFront = new List<StaffMemberFront>();
-                foreach(StaffMember smcfm in ChiefManagersList)
+                foreach (StaffMember smcfm in ChiefManagersList)
                 {
                     ChiefManagersListFront.Add(smcfm.convertToStaffMemberFront(smcfm));
                 }
@@ -73,19 +80,11 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
                 foreach (StaffMemberFront smcfmf in ChiefManagersListFront)
                 {
                     smcfmf.staffMembersFront = DisplayStaffMemberManage(smcfmf);
-                   
+
                 }
             }
-            #endregion
-            #region //RelayCommand
-            CommandAddStaffMembers = new RelayCommand(OpenWindowsAddStaffMembers);
-            CommandUpdateStaffMembers = new RelayCommand(UpdateStaffMember);
-            CommandRemoveStaffMembers = new RelayCommand(DeleteStaffMember);
-            #endregion
+            RaisePropertyChanged(nameof(ChiefManagersListFront));
         }
-
-
-        #region//Methodes
         public void OpenWindowsAddStaffMembers()
         {
             AddStaffMembersView addStaffMembersView = new AddStaffMembersView();
@@ -119,25 +118,31 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
             return StaffMembersManageListFront;
         }
 
-        public  void UpdateStaffMember()
+        public void UpdateStaffMember()
         {
-            using (var context = new StaffMembersContext())
+            try
             {
-                var staffmember = new StaffMember
+                using (var context = new StaffMembersContext())
                 {
-                    SurName = this.Surname,
-                    Mail = this.Mail,
-                    Name = this.Name,
-                    Tel = this.Tel,
-                    Fonction = GetFonction,
 
-                };
+                    StaffMember sm = context.staffMember.Find(AssignedTreeView.ID);
+                    sm.Name = AssignedTreeView.Name;
+                    sm.SurName = AssignedTreeView.SurName;
+                    sm.Mail = AssignedTreeView.Mail;
+                    sm.Tel = AssignedTreeView.Tel;
+                    sm.Fonction = AssignedTreeView.Fonction;
+                    context.staffMember.Update(sm);
+                   
+                    context.SaveChanges();
 
-                var UpdateStaff = context.staffMember.First();
-                context.Update(UpdateStaff);
-                context.SaveChanges();
+                    
 
-                
+                    DisplayTreeView();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Saisie invalide", "Veuillez verifier les données saisie" + ex.Message);
             }
         }
 
@@ -145,11 +150,14 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         {
             using (var context = new StaffMembersContext())
             {
-                var staff = context.staffMember.FirstOrDefault();
-                context.staffMember.Remove(staff);
+
+                context.staffMember.Remove(context.staffMember.Find(AssignedTreeView.ID));
                 
                 context.SaveChanges();
+
+                DisplayTreeView();
             }
+            
         }
         #endregion
     }
