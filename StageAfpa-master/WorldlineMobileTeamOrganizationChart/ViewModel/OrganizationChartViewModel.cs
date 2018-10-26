@@ -16,9 +16,6 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
 {
     class OrganizationChartViewModel : BindableBaseViewModel
     {
-
-        
-
         #region //propiétés        
         private List<StaffMemberFront> _ChiefManagersListFront;
         private List<StaffMember> _ChiefManagersList;
@@ -45,32 +42,30 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         public ICommand CommandAddStaffMembers { get; private set; }
         public ICommand CommandUpdateStaffMembers { get; private set; }
         public ICommand CommandRemoveStaffMembers { get; private set; }
-        
-
-        BddEfCoreHelper BddEfCoreHelper = new BddEfCoreHelper();
-
         #endregion
 
-        public OrganizationChartViewModel()
-        {
-        
-            #region//Filtrage des données pour la TriewView
-            DisplayTreeView();
-            #endregion
+        #region//ObjetBdd
+        BddEfCoreHelper BddEfCoreHelper = new BddEfCoreHelper();
+        #endregion
 
-            #region //RelayCommand
+        #region//Constructeur
+        public OrganizationChartViewModel()
+        {       
+            //Filtrage des données pour la TriewView
+            DisplayTreeView();
+            
+            //RelayCommand
             CommandAddStaffMembers = new RelayCommand(OpenWindowsAddStaffMembers);
             CommandUpdateStaffMembers = new RelayCommand(ModifiedStaffMember);
-            CommandRemoveStaffMembers = new RelayCommand(DeleteStaffMember);
-            #endregion
+            CommandRemoveStaffMembers = new RelayCommand(DeleteStaffMember);            
         }
+        #endregion
+
         #region//Methodes
         public void DisplayTreeView()
-        {
-            
+        {            
            ChiefManagersList = BddEfCoreHelper.FiltreChiefManager();
            
-
                 ChiefManagersListFront = new List<StaffMemberFront>();
             
                 foreach (StaffMember smcfm in  ChiefManagersList)

@@ -17,42 +17,29 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
 {
     class MainWindowViewModel : BindableBaseViewModel
     {
-        
-
+        #region//Propriétés
         private string _UserMdp;
         private string _UserLogin;
         private string _VerifLogAndPass;
 
-        
-
-
-        
-
         List<UserAccount> data;
         
-
-        
-
         public ICommand CommandConnexion { get; private set; }  
-
         public string UserLogin { get => _UserLogin; set { _UserLogin = value;RaisePropertyChanged(UserLogin); } }
-
         public string UserMdp { get => _UserMdp; set { _UserMdp = value;RaisePropertyChanged(UserMdp); } }
-
         public string VerifLogAndPass { get => _VerifLogAndPass; set { _VerifLogAndPass = value;RaisePropertyChanged(VerifLogAndPass); } }
-
         public BddEfCoreHelper usingBdd { get; set; }
+        #endregion
 
-        
-
+        #region//Constructeur
         public MainWindowViewModel()
         {
             CommandConnexion = new RelayCommand(GetInfoCo);
         }
+        #endregion
 
-        
-        
 
+        #region//Methodes
         public async void GetInfoCo()
         {
             try {
@@ -98,7 +85,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
             
 
         }
-
+        #endregion
 
 
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using WorldlineMobileTeamOrganizationChart.Model.Classes.Employees;
 using WorldlineMobileTeamOrganizationChart.ViewModel;
 
@@ -53,12 +54,16 @@ namespace WorldlineMobileTeamOrganizationChart.Helpers
         }
 
 
-        public void Delete(StaffMember AssignedTreeView)
+        public  void Delete(StaffMember AssignedTreeView)
         {
             using (var context = new StaffMembersContext())
             {
+                                    
+
+
                 context.staffMember.Remove(context.staffMember.Find(AssignedTreeView.ID));
                 context.SaveChanges();
+                
             }
         }
 
@@ -81,12 +86,15 @@ namespace WorldlineMobileTeamOrganizationChart.Helpers
 
         public async void AddStaffMemberBdd(StaffMember staffMember)
         {
-            using (var context = new StaffMembersContext())
-            { 
-                await context.AddAsync(staffMember);
-                var members = context.staffMember.ToList();
-                context.SaveChanges();
-            }
+            try {
+                using (var context = new StaffMembersContext())
+                {
+                    await context.AddAsync(staffMember);
+                    var members = context.staffMember.ToList();
+                    context.SaveChanges();
+                }
+            } catch(Exception Ex) { MessageBox.Show("Veuillez verifier les données saisies" + Ex.Message); }
+            
         }
         #endregion
 

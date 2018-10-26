@@ -15,16 +15,17 @@ using WorldlineMobileTeamOrganizationChart.View;
 namespace WorldlineMobileTeamOrganizationChart.ViewModel
 {
     class AddStaffMembersViewModel : BindableBaseViewModel
-    {        
+    {
+        #region propriétés     
         private string _Surname;
         private string _Name;
         private string _Mail;
         private string _Tel;
         private StaffMember _ManagerId;
-        private List<StaffMember> _ManagersList;
         private StaffFonction _Fonction;
 
-        
+        private List<StaffMember> _ManagersList;
+                
         public string Surname { get => _Surname; set { _Surname = value; RaisePropertyChanged(nameof(Surname)); } }
         public string Name { get => _Name; set { _Name = value; RaisePropertyChanged(nameof(Name)); }}
         public string Mail { get => _Mail; set { _Mail = value; RaisePropertyChanged(nameof(Mail)); } }
@@ -32,26 +33,28 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
 
         public List<StaffMember> ManagersList { get => _ManagersList; set { _ManagersList = value; RaisePropertyChanged(nameof(ManagersList)); } }
         
-
-        public StaffFonction Fonction { get => _Fonction; set { _Fonction = value; RaisePropertyChanged(nameof(Fonction)); } }
         public StaffMember AssignedManager { get => _ManagerId; set { _ManagerId = value; RaisePropertyChanged(nameof(AssignedManager)); } }
 
+        public StaffFonction Fonction { get => _Fonction; set { _Fonction = value; RaisePropertyChanged(nameof(Fonction)); } }
         public ICommand CommandAddStaffMember { get; set; }
         public ICommand CommandAddManager { get; set; }
         public ICommand CommandBack { get; set; }
+        #endregion
 
+        #region//Objet BDD
         BddEfCoreHelper BddEfCoreHelper = new BddEfCoreHelper();
-        
+        #endregion
 
+        #region//Constructeur
         public AddStaffMembersViewModel ()
         {
             CommandBack = new RelayCommand(Retour);
             CommandAddStaffMember = new RelayCommand(UpdateBdd);
             DisplayManager();   
         }
+        #endregion
 
-        
-
+        #region//Methodes
         public void DisplayManager()
         {
           ManagersList =  BddEfCoreHelper.DisplayBddManager();
@@ -78,7 +81,6 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
                         Tel = this.Tel,
                         Fonction = Fonction,
                         ManagerID = AssignedManager != null ? AssignedManager.ID : 0
-
                     };
 
                 BddEfCoreHelper.AddStaffMemberBdd(staffMember);
@@ -90,5 +92,6 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
                 MessageBox.Show("Saisie invalide", "Veuillez verifier les données saisie"  +  ex.Message);
             }           
         }
+        #endregion
     }
 }
