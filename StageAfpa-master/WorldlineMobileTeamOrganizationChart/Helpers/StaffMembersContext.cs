@@ -31,13 +31,6 @@ namespace WorldlineMobileTeamOrganizationChart.Helpers
             modelBuilder.Entity<StaffMember>()
                 .HasIndex(s => new { s.Mail, s.Tel })
                 .IsUnique();
-
-
-
-
-
-
-
         }
 
 

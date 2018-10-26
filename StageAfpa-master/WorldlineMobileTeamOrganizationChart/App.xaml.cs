@@ -19,7 +19,14 @@ namespace WorldlineMobileTeamOrganizationChart
         
        public App()
        {
-            
-       }
+            using (var context = new StaffMembersContext())
+            {
+                try { context.Database.EnsureCreated(); }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Connection à la base de donnée impossible" + ex.Message);
+                }
+            }
+        }
     }
 }

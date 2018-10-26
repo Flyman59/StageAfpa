@@ -198,7 +198,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\EnumConverter.cs" />
-    <Compile Include="Helpers\ModelBaseViewModel.cs" />
+    <Compile Include="Helpers\BddEfCoreHelper.cs" />
+    <Compile Include="Helpers\BindableBaseViewModel.cs" />
     <Compile Include="Helpers\RegexValidationRule.cs" />
     <Compile Include="Helpers\RegexValidator.cs" />
     <Compile Include="Helpers\StaffMembersContext.cs" />

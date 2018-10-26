@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,8 +15,7 @@ using WorldlineMobileTeamOrganizationChart.View;
 namespace WorldlineMobileTeamOrganizationChart.ViewModel
 {
     class AddStaffMembersViewModel : BindableBaseViewModel
-    {
-
+    {        
         private string _Surname;
         private string _Name;
         private string _Mail;
@@ -39,39 +39,22 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         public ICommand CommandAddStaffMember { get; set; }
         public ICommand CommandAddManager { get; set; }
         public ICommand CommandBack { get; set; }
+
+        BddEfCoreHelper BddEfCoreHelper = new BddEfCoreHelper();
         
 
         public AddStaffMembersViewModel ()
         {
             CommandBack = new RelayCommand(Retour);
             CommandAddStaffMember = new RelayCommand(UpdateBdd);
-            DisplayManager();
-
-            using (var context = new StaffMembersContext())
-            {
-                try { context.Database.EnsureCreated(); }catch(Exception ex)
-                {
-                    MessageBox.Show("Connection à la base de donnée impossible" + ex.Message);
-                }
-                
-            }
-            
+            DisplayManager();   
         }
 
         
 
         public void DisplayManager()
         {
-            using (var context = new StaffMembersContext())
-            {
-                var manager = from m in context.staffMember
-                              where m.Fonction == StaffFonction.Manager
-                          
-                              select m;
-
-                ManagersList = manager.ToList();
-                context.SaveChanges();
-            }
+          ManagersList =  BddEfCoreHelper.DisplayBddManager();
         }
 
         public void Retour()
@@ -84,12 +67,9 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
             App.Current.Windows[2].Close();
         }
 
-        public async void UpdateBdd()
+        public void UpdateBdd()
         {
-            try {
-                using (var context = new StaffMembersContext())
-                {
-
+            try {                
                     var staffMember = new StaffMember
                     {
                         SurName = this.Surname,
@@ -100,20 +80,15 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
                         ManagerID = AssignedManager != null ? AssignedManager.ID : 0
 
                     };
-                    await context.AddAsync(staffMember);
-                    var members = context.staffMember.ToList();
-                    context.SaveChanges();
 
-                    DisplayManager();
-                }
+                BddEfCoreHelper.AddStaffMemberBdd(staffMember);
+
+                DisplayManager();
             }
             catch(Exception ex)
             {
                 MessageBox.Show("Saisie invalide", "Veuillez verifier les données saisie"  +  ex.Message);
-            }
-            
-
-            
+            }           
         }
     }
 }

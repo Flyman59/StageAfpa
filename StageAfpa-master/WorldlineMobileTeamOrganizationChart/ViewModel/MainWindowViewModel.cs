@@ -15,8 +15,10 @@ using WorldlineMobileTeamOrganizationChart.View;
 
 namespace WorldlineMobileTeamOrganizationChart.ViewModel
 {
-    class MainWindowViewModel : BindableBaseViewModel 
+    class MainWindowViewModel : BindableBaseViewModel
     {
+        
+
         private string _UserMdp;
         private string _UserLogin;
         private string _VerifLogAndPass;
@@ -39,19 +41,13 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
 
         public string VerifLogAndPass { get => _VerifLogAndPass; set { _VerifLogAndPass = value;RaisePropertyChanged(VerifLogAndPass); } }
 
-        
+        public BddEfCoreHelper usingBdd { get; set; }
 
         
 
         public MainWindowViewModel()
         {
             CommandConnexion = new RelayCommand(GetInfoCo);
-
-            using (var context = new StaffMembersContext())
-            {
-                context.Database.EnsureCreated();
-            }
-
         }
 
         
