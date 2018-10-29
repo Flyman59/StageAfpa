@@ -85,8 +85,9 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
         public void OpenWindowsAddStaffMembers()
         {
             AddStaffMembersView addStaffMembersView = new AddStaffMembersView();
-            
+
             addStaffMembersView.Show();
+            Application.Current.Windows[0].Close();
         }
 
         public List<StaffMemberFront> DisplayStaffMemberManage(StaffMemberFront smcfm)

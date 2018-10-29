@@ -58,8 +58,31 @@ namespace WorldlineMobileTeamOrganizationChart.Helpers
         {
             using (var context = new StaffMembersContext())
             {
-                                    
+                var allManagerMember = from manager in context.staffMember
+                                       where manager.Fonction == StaffFonction.Manager
+                                       select manager;
 
+                if(allManagerMember != null)
+                {
+                    var allManagedMembers = from newId in context.staffMember
+                                            where newId.ManagerID == AssignedTreeView.ID
+                                            select newId;
+                    
+                    foreach (var allManagedMember in allManagedMembers)
+                    {
+                        allManagedMember.ManagerID = AssignedTreeView.ManagerID;
+                    }
+                }else
+                {
+                    var managedMembers = from newIdManager in context.staffMember
+                                         where newIdManager.ManagerID == AssignedTreeView.ID
+                                         select newIdManager;
+
+                    foreach (var managedMember in managedMembers)
+                    {
+                        managedMember.ManagerID = 0;
+                    }
+                }
 
                 context.staffMember.Remove(context.staffMember.Find(AssignedTreeView.ID));
                 context.SaveChanges();

@@ -67,7 +67,7 @@ namespace WorldlineMobileTeamOrganizationChart.ViewModel
             OrganizationalChartView organizationalChartView = new OrganizationalChartView();
             organizationalChartView.Show();
             // Ferme la premiere fenetre (celle de derriere)
-            App.Current.Windows[2].Close();
+            App.Current.Windows[0].Close();
         }
 
         public void UpdateBdd()
