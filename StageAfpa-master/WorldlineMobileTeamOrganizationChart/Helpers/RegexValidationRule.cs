@@ -16,11 +16,8 @@ namespace WorldlineMobileTeamOrganizationChart.Helpers
     /// </summary>
     public class RegexValidationRule : ValidationRule
     {
-        #region Data
 
-        private string errorMessage;
-        private RegexOptions regexOptions = RegexOptions.None;
-        private string regexText;
+        #region Data
 
         #endregion // Data
 
@@ -51,7 +48,7 @@ namespace WorldlineMobileTeamOrganizationChart.Helpers
         public RegexValidationRule(string regexText, string errorMessage)
             : this(regexText)
         {
-            this.RegexOptions = regexOptions;
+            this.RegexOptions = RegexOptions;
         }
 
         /// <summary>
@@ -74,30 +71,18 @@ namespace WorldlineMobileTeamOrganizationChart.Helpers
         /// <summary>
         /// Gets/sets the error message to be used when validation fails.
         /// </summary>
-        public string ErrorMessage
-        {
-            get { return this.errorMessage; }
-            set { this.errorMessage = value; }
-        }
+        public string ErrorMessage { get; set; }
 
         /// <summary>
         /// Gets/sets the RegexOptions to be used during validation.
         /// This property's default value is 'None'.
         /// </summary>
-        public RegexOptions RegexOptions
-        {
-            get { return regexOptions; }
-            set { regexOptions = value; }
-        }
+        public RegexOptions RegexOptions { get; set; } = RegexOptions.None;
 
         /// <summary>
         /// Gets/sets the regular expression used during validation.
         /// </summary>
-        public string RegexText
-        {
-            get { return regexText; }
-            set { regexText = value; }
-        }
+        public string RegexText { get; set; }
 
         #endregion // Properties
 

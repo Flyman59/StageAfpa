@@ -13,7 +13,5 @@ namespace WorldlineMobileTeamOrganizationChart.Client
         public string login { get; set; }
         public string mdp { get; set; }
         
-
-        
     }
 }

@@ -116,7 +116,7 @@ namespace WorldlineMobileTeamOrganizationChart.Helpers
                     var members = context.staffMember.ToList();
                     context.SaveChanges();
                 }
-            } catch(Exception Ex) { MessageBox.Show("Veuillez verifier les données saisies" + Ex.Message); }
+            } catch(Exception Ex) { MessageBox.Show(" Veuillez verifier les données saisies /br " + Ex.Message); }
             
         }
         #endregion
